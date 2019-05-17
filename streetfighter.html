@@ -1,0 +1,1584 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>C:\dragonWarrior\mainStreetFighter\main.cpp</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="generator" content="Code::Blocks Exporter plugin" />
+<style type="text/css">
+<!--
+body { color: #000000; background-color: #FFFFFF; }
+.style11 { color: #000000; background-color: #FFFFFF; }
+.style64 { color: #C8C8C8; }
+.style72 { color: #C8C8C8; }
+.style75 { color: #C8C8C8; }
+.style1 { color: #A0A0A0; }
+.style23 { color: #A0A0A0; }
+.style65 { color: #A0A0A0; }
+.style87 { color: #A0A0A0; }
+.style2 { color: #BEBEE6; }
+.style66 { color: #BEBEE6; }
+.style3 { color: #8080FF; font-weight: bold; }
+.style24 { color: #8080FF; font-weight: bold; }
+.style67 { color: #8080FF; font-weight: bold; }
+.style88 { color: #8080FF; font-weight: bold; }
+.style15 { color: #8080FF; font-weight: bold; }
+.style79 { color: #8080FF; font-weight: bold; }
+.style17 { color: #008080; }
+.style81 { color: #008080; }
+.style18 { color: #800000; }
+.style82 { color: #800000; }
+.style4 { color: #F000F0; }
+.style68 { color: #F0C8F0; }
+.style5 { color: #0000A0; font-weight: bold; }
+.style69 { color: #8787C8; font-weight: bold; }
+.style16 { color: #00A000; font-weight: bold; }
+.style80 { color: #9AC89A; font-weight: bold; }
+.style19 { color: #BE00BE; font-weight: bold; }
+.style83 { color: #BE89BE; font-weight: bold; }
+.style6 { color: #0000FF; }
+.style12 { color: #0000FF; }
+.style20 { color: #0000FF; }
+.style70 { color: #BEBEFF; }
+.style76 { color: #BEBEFF; }
+.style7 { color: #E0A000; }
+.style71 { color: #E0CE9F; }
+.style8 { color: #000000; }
+.style9 { color: #00A000; }
+.style73 { color: #84A084; }
+.style10 { color: #FF0000; }
+.style74 { color: #FFC8C8; }
+.style34 { color: #000000; background-color: #80FFFF; font-weight: bold; }
+.style35 { color: #FFFFFF; background-color: #FF0000; font-weight: bold; }
+.style50 { color: #404080; font-style: italic; }
+.style114 { color: #8585AC; font-style: italic; }
+--></style></head>
+<body>
+<pre>
+<code><span style="font: 8pt Courier New;"><span class="body">   1 </span><span class="style9">#include &lt;SFML/Graphics.hpp&gt;</span>
+<span class="body">   2  </span><span class="style9">#include &lt;SFML/Window.hpp&gt;</span>
+<span class="body">   3  </span><span class="style9">#include &lt;SFML/Audio.hpp&gt;</span>
+<span class="body">   4  </span>
+<span class="body">   5  </span><span class="style9">#include &lt;iostream&gt;</span>
+<span class="body">   6  </span><span class="style9">#include &lt;string&gt;</span>
+<span class="body">   7  </span><span class="style9">#include &lt;Windows.h&gt;</span>
+<span class="body">   8  </span>
+<span class="body">   9  </span><span class="style5">using namespace </span><span class="style16">std</span><span class="style10">;</span>
+<span class="body">  10  </span><span class="style5">using namespace </span><span class="style11">sf</span><span class="style10">;</span>
+<span class="body">  11  </span>
+<span class="body">  12  </span>
+<span class="body">  13  </span><span class="style5">class </span><span class="style11">Levels</span>
+<span class="body">  14  </span><span class="style10">{</span>
+<span class="body">  15  </span>
+<span class="body">  16      </span><span class="style16">string </span><span class="style11">name</span><span class="style10">;</span>
+<span class="body">  17      </span><span class="style11">Sprite spbg</span><span class="style10">;</span>
+<span class="body">  18      </span><span class="style11">Texture txbg</span><span class="style10">;</span>
+<span class="body">  19  </span><span class="style5">public</span><span class="style10">:</span>
+<span class="body">  20  </span>
+<span class="body">  21      </span><span class="style11">Levels</span><span class="style10">() {</span>
+<span class="body">  22          name = '\0';</span>
+<span class="body">  23      }</span>
+<span class="body">  24  </span>
+<span class="body">  25      Levels(string adress, string name) {</span>
+<span class="body">  26          this-&gt;name = name;</span>
+<span class="body">  27          txbg.loadFromFile(adress);</span>
+<span class="body">  28          spbg.setTexture(txbg);</span>
+<span class="body">  29      }</span>
+<span class="body">  30  </span>
+<span class="body">  31      ~Levels() {</span>
+<span class="body">  32          name = '\0';</span>
+<span class="body">  33      }</span>
+<span class="body">  34  </span>
+<span class="body">  35  </span>
+<span class="body">  36      void setPosition() {</span>
+<span class="body">  37  </span>
+<span class="body">  38          Vector2f targetSize(1366.0f, 768.0f);</span>
+<span class="body">  39  </span>
+<span class="body">  40          spbg.setScale(</span>
+<span class="body">  41              targetSize.x / spbg.getLocalBounds().width,</span>
+<span class="body">  42              targetSize.y / spbg.getLocalBounds().height);</span>
+<span class="body">  43      }</span>
+<span class="body">  44  </span>
+<span class="body">  45  </span>
+<span class="body">  46      void setName(string name) {</span>
+<span class="body">  47          this-&gt;name = name;</span>
+<span class="body">  48      }</span>
+<span class="body">  49  </span>
+<span class="body">  50      void setTxbg(string adress) {</span>
+<span class="body">  51  </span>
+<span class="body">  52          this-&gt;txbg.loadFromFile(adress);</span>
+<span class="body">  53      }</span>
+<span class="body">  54  </span>
+<span class="body">  55  </span>
+<span class="body">  56      Sprite getspbg() {</span>
+<span class="body">  57          return spbg;</span>
+<span class="body">  58      }</span>
+<span class="body">  59  </span>
+<span class="body">  60      string getName() {</span>
+<span class="body">  61          return name;</span>
+<span class="body">  62      }</span>
+<span class="body">  63  };</span>
+<span class="body">  64  class mainmenu:public Levels</span>
+<span class="body">  65  {</span>
+<span class="body">  66  </span>
+<span class="body">  67  private:</span>
+<span class="body">  68  </span>
+<span class="body">  69      Font font;</span>
+<span class="body">  70      Text title;</span>
+<span class="body">  71      Text ply;</span>
+<span class="body">  72      Text ins;</span>
+<span class="body">  73      Text exi;</span>
+<span class="body">  74  public:</span>
+<span class="body">  75      mainmenu(string adress = "Assets/mainMenu.gif", string name = "Main Menu") :Levels(adress,name) {</span>
+<span class="body">  76  </span>
+<span class="body">  77          font.loadFromFile("Assets/SouthernAire.ttf");</span>
+<span class="body">  78  </span>
+<span class="body">  79      }</span>
+<span class="body">  80  </span>
+<span class="body">  81      ~mainmenu() {</span>
+<span class="body">  82          setTxbg("NULL");</span>
+<span class="body">  83          setName("NULL");</span>
+<span class="body">  84      }</span>
+<span class="body">  85  </span>
+<span class="body">  86  </span>
+<span class="body">  87      Text gettitle() {</span>
+<span class="body">  88          return title;</span>
+<span class="body">  89      }</span>
+<span class="body">  90  </span>
+<span class="body">  91      Text getPlay() {</span>
+<span class="body">  92          return ply;</span>
+<span class="body">  93      }</span>
+<span class="body">  94  </span>
+<span class="body">  95      Text getInstruction() {</span>
+<span class="body">  96          return ins;</span>
+<span class="body">  97      }</span>
+<span class="body">  98  </span>
+<span class="body">  99      Text getExit() {</span>
+<span class="body"> 100          return exi;</span>
+<span class="body"> 101      }</span>
+<span class="body"> 102  </span>
+<span class="body"> 103      void draw() {</span>
+<span class="body"> 104  </span>
+<span class="body"> 105          title.setFont(font);</span>
+<span class="body"> 106          title.setString("Street Fighter!");</span>
+<span class="body"> 107          title.setPosition(300.0f, 50.0f);</span>
+<span class="body"> 108          title.setColor(Color::White);</span>
+<span class="body"> 109          title.setCharacterSize(172);</span>
+<span class="body"> 110  </span>
+<span class="body"> 111  </span>
+<span class="body"> 112          ply.setFont(font);</span>
+<span class="body"> 113          ply.setString("Play");</span>
+<span class="body"> 114          ply.setPosition(575.0f, 300.0f);</span>
+<span class="body"> 115  </span>
+<span class="body"> 116          IntRect rect2(ply.getPosition().x + 5, ply.getPosition().y + 5, ply.getGlobalBounds().width + 5, ply.getGlobalBounds().height + 5);</span>
+<span class="body"> 117  </span>
+<span class="body"> 118  </span>
+<span class="body"> 119          if (rect2.contains(Mouse::getPosition()))</span>
+<span class="body"> 120              ply.setColor(Color::Yellow);</span>
+<span class="body"> 121  </span>
+<span class="body"> 122          else</span>
+<span class="body"> 123              ply.setColor(Color::White);</span>
+<span class="body"> 124  </span>
+<span class="body"> 125          ply.setCharacterSize(72);</span>
+<span class="body"> 126  </span>
+<span class="body"> 127  </span>
+<span class="body"> 128          ins.setFont(font);</span>
+<span class="body"> 129          ins.setString("Instruction");</span>
+<span class="body"> 130          ins.setPosition(575.0f, 450.0f);</span>
+<span class="body"> 131          sf::IntRect rect1(ins.getPosition().x + 5, ins.getPosition().y + 5, ins.getGlobalBounds().width + 5, ins.getGlobalBounds().height + 5);</span>
+<span class="body"> 132  </span>
+<span class="body"> 133  </span>
+<span class="body"> 134          if (rect1.contains(Mouse::getPosition()))</span>
+<span class="body"> 135              ins.setColor(Color::Yellow);</span>
+<span class="body"> 136  </span>
+<span class="body"> 137          else</span>
+<span class="body"> 138              ins.setColor(Color::White);</span>
+<span class="body"> 139  </span>
+<span class="body"> 140          ins.setCharacterSize(72);</span>
+<span class="body"> 141  </span>
+<span class="body"> 142  </span>
+<span class="body"> 143          exi.setFont(font);</span>
+<span class="body"> 144          exi.setString("Exit");</span>
+<span class="body"> 145          exi.setPosition(575.0f, 600.0f);</span>
+<span class="body"> 146          sf::IntRect rect(exi.getPosition().x + 5, exi.getPosition().y + 5, exi.getGlobalBounds().width + 5, exi.getGlobalBounds().height + 5);</span>
+<span class="body"> 147  </span>
+<span class="body"> 148  </span>
+<span class="body"> 149          if (rect.contains(Mouse::getPosition()))</span>
+<span class="body"> 150              exi.setColor(Color::Yellow);</span>
+<span class="body"> 151  </span>
+<span class="body"> 152          else</span>
+<span class="body"> 153              exi.setColor(Color::White);</span>
+<span class="body"> 154  </span>
+<span class="body"> 155          exi.setCharacterSize(72);</span>
+<span class="body"> 156      }</span>
+<span class="body"> 157  </span>
+<span class="body"> 158      bool play() {</span>
+<span class="body"> 159  </span>
+<span class="body"> 160          IntRect rect1(ply.getPosition().x + 5, ply.getPosition().y + 5, ply.getGlobalBounds().width + 5, ply.getGlobalBounds().height + 5);</span>
+<span class="body"> 161  </span>
+<span class="body"> 162          if (Mouse::isButtonPressed(Mouse::Left))</span>
+<span class="body"> 163              if (rect1.contains(Mouse::getPosition()))</span>
+<span class="body"> 164                  return true;</span>
+<span class="body"> 165  </span>
+<span class="body"> 166          return false;</span>
+<span class="body"> 167      }</span>
+<span class="body"> 168  </span>
+<span class="body"> 169      bool instructions() {</span>
+<span class="body"> 170  </span>
+<span class="body"> 171          IntRect rect1(ins.getPosition().x + 5, ins.getPosition().y + 5, ins.getGlobalBounds().width + 5, ins.getGlobalBounds().height + 5);</span>
+<span class="body"> 172  </span>
+<span class="body"> 173          if (Mouse::isButtonPressed(Mouse::Left))</span>
+<span class="body"> 174              if (rect1.contains(Mouse::getPosition()))</span>
+<span class="body"> 175                  return true;</span>
+<span class="body"> 176  </span>
+<span class="body"> 177          return false;</span>
+<span class="body"> 178      }</span>
+<span class="body"> 179  </span>
+<span class="body"> 180      bool exit() {</span>
+<span class="body"> 181          IntRect rect(exi.getPosition().x + 5, exi.getPosition().y + 5, exi.getGlobalBounds().width + 5, exi.getGlobalBounds().height + 5);</span>
+<span class="body"> 182  </span>
+<span class="body"> 183          if (Mouse::isButtonPressed(Mouse::Left))</span>
+<span class="body"> 184              if (rect.contains(Mouse::getPosition()))</span>
+<span class="body"> 185                  return true;</span>
+<span class="body"> 186  </span>
+<span class="body"> 187          return false;</span>
+<span class="body"> 188      }</span>
+<span class="body"> 189  };</span>
+<span class="body"> 190  class Instruction:public Levels</span>
+<span class="body"> 191  {</span>
+<span class="body"> 192  </span>
+<span class="body"> 193  private:</span>
+<span class="body"> 194  </span>
+<span class="body"> 195      Font font;</span>
+<span class="body"> 196      Text tx[7];</span>
+<span class="body"> 197      Texture txbg;</span>
+<span class="body"> 198  public:</span>
+<span class="body"> 199      Instruction(string adress = "Assets/insSpirits.gif", string name = "Instructions") :Levels(adress,name) {</span>
+<span class="body"> 200          font.loadFromFile("Assets/david.ttf");</span>
+<span class="body"> 201      }</span>
+<span class="body"> 202  </span>
+<span class="body"> 203      ~Instruction() {</span>
+<span class="body"> 204          setTxbg("NULL");</span>
+<span class="body"> 205          setName("NULL");</span>
+<span class="body"> 206      }</span>
+<span class="body"> 207  </span>
+<span class="body"> 208  </span>
+<span class="body"> 209      Text getTx(int i) {</span>
+<span class="body"> 210          return tx[i];</span>
+<span class="body"> 211      }</span>
+<span class="body"> 212  </span>
+<span class="body"> 213      bool back() {</span>
+<span class="body"> 214  </span>
+<span class="body"> 215          IntRect rect(tx[6].getPosition().x + 5, tx[6].getPosition().y + 5, tx[6].getGlobalBounds().width + 5, tx[6].getGlobalBounds().height + 5);</span>
+<span class="body"> 216          if (Mouse::isButtonPressed(Mouse::Left))</span>
+<span class="body"> 217              if (rect.contains(Mouse::getPosition()))</span>
+<span class="body"> 218                  return true;</span>
+<span class="body"> 219  </span>
+<span class="body"> 220          return false;</span>
+<span class="body"> 221      }</span>
+<span class="body"> 222  </span>
+<span class="body"> 223      void draw() {</span>
+<span class="body"> 224          for (int i = 0; i &lt; 7; i++) {</span>
+<span class="body"> 225              tx[i].setFont(font);</span>
+<span class="body"> 226              tx[i].setColor(Color::White);</span>
+<span class="body"> 227              tx[i].setCharacterSize(24);</span>
+<span class="body"> 228          }</span>
+<span class="body"> 229  </span>
+<span class="body"> 230  </span>
+<span class="body"> 231          tx[0].setString("Instruction");</span>
+<span class="body"> 232          tx[0].setPosition(300.0f, 50.0f);</span>
+<span class="body"> 233          tx[0].setCharacterSize(172);</span>
+<span class="body"> 234  </span>
+<span class="body"> 235          tx[1].setString("Player 1: Arrow Keys to Move Character");</span>
+<span class="body"> 236          tx[1].setPosition(250.0f, 250.0f);</span>
+<span class="body"> 237  </span>
+<span class="body"> 238          tx[2].setString("Player 1: Use A to Punch , S To Kick , D To Combo , F To Block");</span>
+<span class="body"> 239          tx[2].setPosition(250.0f, 300.f);</span>
+<span class="body"> 240  </span>
+<span class="body"> 241          tx[3].setString("Player 2: Use V to Punch , B To Kick , N To Combo , M To Block ");</span>
+<span class="body"> 242          tx[3].setPosition(250.0f, 350.0f);</span>
+<span class="body"> 243  </span>
+<span class="body"> 244          tx[4].setString("Player 2: Use J To move Forward , L to move Backward");</span>
+<span class="body"> 245          tx[4].setPosition(250.0f, 400.0f);</span>
+<span class="body"> 246  </span>
+<span class="body"> 247          tx[5].setString("Player 2: Use I to Jump , K to Sit");</span>
+<span class="body"> 248          tx[5].setPosition(250.0f, 450.0f);</span>
+<span class="body"> 249  </span>
+<span class="body"> 250          tx[6].setString("Back!");</span>
+<span class="body"> 251          tx[6].setPosition(250.0f, 550.0f);</span>
+<span class="body"> 252  </span>
+<span class="body"> 253          IntRect rect2(tx[6].getPosition().x + 5, tx[6].getPosition().y + 5, tx[6].getGlobalBounds().width + 5, tx[6].getGlobalBounds().height + 5);</span>
+<span class="body"> 254  </span>
+<span class="body"> 255          if (rect2.contains(Mouse::getPosition()))</span>
+<span class="body"> 256              tx[6].setColor(Color::Yellow);</span>
+<span class="body"> 257  </span>
+<span class="body"> 258          else</span>
+<span class="body"> 259              tx[6].setColor(Color::White);</span>
+<span class="body"> 260  </span>
+<span class="body"> 261          tx[6].setCharacterSize(50);</span>
+<span class="body"> 262      }</span>
+<span class="body"> 263  };</span>
+<span class="body"> 264  class characters</span>
+<span class="body"> 265  {</span>
+<span class="body"> 266  </span>
+<span class="body"> 267  private:</span>
+<span class="body"> 268      string name;</span>
+<span class="body"> 269  protected:</span>
+<span class="body"> 270  </span>
+<span class="body"> 271      Sprite *sprite;</span>
+<span class="body"> 272      Texture *texture;</span>
+<span class="body"> 273  public:</span>
+<span class="body"> 274      characters() {</span>
+<span class="body"> 275          this-&gt;name = "\0";</span>
+<span class="body"> 276      }</span>
+<span class="body"> 277  </span>
+<span class="body"> 278      characters(string name) {</span>
+<span class="body"> 279          this-&gt;name = name;</span>
+<span class="body"> 280      }</span>
+<span class="body"> 281  </span>
+<span class="body"> 282      ~characters() {</span>
+<span class="body"> 283          this-&gt;name = "\0";</span>
+<span class="body"> 284      }</span>
+<span class="body"> 285  </span>
+<span class="body"> 286      string getName() {</span>
+<span class="body"> 287          return this-&gt;name;</span>
+<span class="body"> 288      }</span>
+<span class="body"> 289  </span>
+<span class="body"> 290      Texture geTexture(int i) {</span>
+<span class="body"> 291          return texture[i];</span>
+<span class="body"> 292      }</span>
+<span class="body"> 293  </span>
+<span class="body"> 294      Sprite getSprite(int i) {</span>
+<span class="body"> 295          return sprite[i];</span>
+<span class="body"> 296      }</span>
+<span class="body"> 297  };</span>
+<span class="body"> 298  class Iori :public characters</span>
+<span class="body"> 299  {</span>
+<span class="body"> 300  </span>
+<span class="body"> 301      int health;</span>
+<span class="body"> 302  </span>
+<span class="body"> 303      Vector2f targetSize;</span>
+<span class="body"> 304      Vector2f pos;</span>
+<span class="body"> 305  public:</span>
+<span class="body"> 306      Iori(string name = "IORI") :characters(name) {</span>
+<span class="body"> 307  </span>
+<span class="body"> 308          texture = new Texture[223];</span>
+<span class="body"> 309          sprite = new Sprite[223];</span>
+<span class="body"> 310  </span>
+<span class="body"> 311          pos.x = 100.0f;</span>
+<span class="body"> 312          pos.y = 365.0f;</span>
+<span class="body"> 313          targetSize.x = 140.0f;//250</span>
+<span class="body"> 314          targetSize.y = 240.0f;//400</span>
+<span class="body"> 315  </span>
+<span class="body"> 316          health = 100;</span>
+<span class="body"> 317  </span>
+<span class="body"> 318  // load ready OK</span>
+<span class="body"> 319  </span>
+<span class="body"> 320          for (int i = 0; i &lt; 10; ++i)</span>
+<span class="body"> 321          {</span>
+<span class="body"> 322  </span>
+<span class="body"> 323              texture[i].loadFromFile("AssetsNew/Iori/ioriReady/ready (" + to_string(i + 1) + ").png");</span>
+<span class="body"> 324              sprite[i].setTexture(texture[i]);</span>
+<span class="body"> 325          }</span>
+<span class="body"> 326  // load idle OK</span>
+<span class="body"> 327  </span>
+<span class="body"> 328          for (int i = 10; i &lt; 19; ++i)</span>
+<span class="body"> 329          {</span>
+<span class="body"> 330  </span>
+<span class="body"> 331              int k=10;</span>
+<span class="body"> 332              texture[i].loadFromFile("AssetsNew/Iori/ioriIdle/idle (" + to_string(i -k + 1) + ").png");</span>
+<span class="body"> 333              sprite[i].setTexture(texture[i]);</span>
+<span class="body"> 334              //sprite.setSize(100, 200);</span>
+<span class="body"> 335          }</span>
+<span class="body"> 336  // load duck OK</span>
+<span class="body"> 337          for (int i = 19; i &lt; 34; ++i)</span>
+<span class="body"> 338          {</span>
+<span class="body"> 339              int k=19;</span>
+<span class="body"> 340              texture[i].loadFromFile("AssetsNew/Iori/ioriDuck/duck (" + to_string(i -k + 1) + ").png");</span>
+<span class="body"> 341              sprite[i].setTexture(texture[i]);</span>
+<span class="body"> 342          }</span>
+<span class="body"> 343  // load walk Front OK</span>
+<span class="body"> 344          for (int i = 34; i &lt; 44; ++i)</span>
+<span class="body"> 345          {</span>
+<span class="body"> 346              int k=34;</span>
+<span class="body"> 347              texture[i].loadFromFile("AssetsNew/Iori/ioriWalkFront/walkFront (" + to_string(i -k + 1) + ").png");</span>
+<span class="body"> 348              sprite[i].setTexture(texture[i]);</span>
+<span class="body"> 349          }</span>
+<span class="body"> 350  // walk back OK</span>
+<span class="body"> 351          for (int i = 44; i &lt; 53; ++i)</span>
+<span class="body"> 352          {</span>
+<span class="body"> 353              int k=44;</span>
+<span class="body"> 354              texture[i].loadFromFile("AssetsNew/Iori/ioriWalkBack/walkBack (" + to_string(i -k + 1) + ").png");</span>
+<span class="body"> 355              sprite[i].setTexture(texture[i]);</span>
+<span class="body"> 356          }</span>
+<span class="body"> 357  // Jump Ok</span>
+<span class="body"> 358          for (int i = 53; i &lt;116 ; ++i)</span>
+<span class="body"> 359          {</span>
+<span class="body"> 360              int k=53;</span>
+<span class="body"> 361              texture[i].loadFromFile("AssetsNew/Iori/ioriJump/jump (" + to_string(i -k + 1) + ").png");</span>
+<span class="body"> 362              sprite[i].setTexture(texture[i]);</span>
+<span class="body"> 363  </span>
+<span class="body"> 364          }</span>
+<span class="body"> 365  // Punch OK</span>
+<span class="body"> 366          for (int i = 116; i &lt; 129; ++i)</span>
+<span class="body"> 367          {</span>
+<span class="body"> 368              int k=116;</span>
+<span class="body"> 369              texture[i].loadFromFile("AssetsNew/Iori/ioriPunch/punch (" + to_string(i -k + 1) + ").png");</span>
+<span class="body"> 370              sprite[i].setTexture(texture[i]);</span>
+<span class="body"> 371          }</span>
+<span class="body"> 372  // Kick OK</span>
+<span class="body"> 373          for (int i = 129; i &lt; 144; ++i)</span>
+<span class="body"> 374          {</span>
+<span class="body"> 375              int k=129;</span>
+<span class="body"> 376              texture[i].loadFromFile("AssetsNew/Iori/ioriKick/kick (" + to_string(i -k + 1) + ").png");</span>
+<span class="body"> 377              sprite[i].setTexture(texture[i]);</span>
+<span class="body"> 378          }</span>
+<span class="body"> 379  // combo OK</span>
+<span class="body"> 380          for (int i = 144; i &lt; 196; ++i)</span>
+<span class="body"> 381          {</span>
+<span class="body"> 382              int k=144;</span>
+<span class="body"> 383              texture[i].loadFromFile("AssetsNew/Iori/ioriCombo/combo (" + to_string(i -k + 1) + ").png");</span>
+<span class="body"> 384              sprite[i].setTexture(texture[i]);</span>
+<span class="body"> 385          }</span>
+<span class="body"> 386  // Block</span>
+<span class="body"> 387          for (int i = 196; i &lt; 207; ++i)</span>
+<span class="body"> 388          {</span>
+<span class="body"> 389              int k=196;</span>
+<span class="body"> 390              texture[i].loadFromFile("AssetsNew/Iori/ioriBlock/block (" + to_string(i -k + 1) + ").png");</span>
+<span class="body"> 391              sprite[i].setTexture(texture[i]);</span>
+<span class="body"> 392          }</span>
+<span class="body"> 393  // dead</span>
+<span class="body"> 394          for (int i = 207; i &lt; 223; ++i)</span>
+<span class="body"> 395          {</span>
+<span class="body"> 396              int k=207;</span>
+<span class="body"> 397              texture[i].loadFromFile("AssetsNew/Iori/ioriDead/dead (" + to_string(i -k + 1) + ").png");</span>
+<span class="body"> 398              sprite[i].setTexture(texture[i]);</span>
+<span class="body"> 399          }</span>
+<span class="body"> 400  </span>
+<span class="body"> 401  </span>
+<span class="body"> 402      }</span>
+<span class="body"> 403  </span>
+<span class="body"> 404      ~Iori() {</span>
+<span class="body"> 405          health = 0;</span>
+<span class="body"> 406      }</span>
+<span class="body"> 407  </span>
+<span class="body"> 408      void setHealth(int health) {</span>
+<span class="body"> 409          this-&gt;health = health;</span>
+<span class="body"> 410      }</span>
+<span class="body"> 411  </span>
+<span class="body"> 412      int getHealth()const {</span>
+<span class="body"> 413          return health;</span>
+<span class="body"> 414      }</span>
+<span class="body"> 415  </span>
+<span class="body"> 416      void Ready(bool status) {</span>
+<span class="body"> 417          if (status == true)</span>
+<span class="body"> 418              for (int i = 0; i &lt; 10; i++) {</span>
+<span class="body"> 419                  sprite[i].setScale(</span>
+<span class="body"> 420                      targetSize.x / sprite[i].getLocalBounds().width,</span>
+<span class="body"> 421                      targetSize.y / sprite[i].getLocalBounds().height);</span>
+<span class="body"> 422                  sprite[i].setPosition(pos);</span>
+<span class="body"> 423              }</span>
+<span class="body"> 424      }</span>
+<span class="body"> 425  </span>
+<span class="body"> 426      void Idle(bool status) {</span>
+<span class="body"> 427          if (status == false)</span>
+<span class="body"> 428              for (int i = 10; i &lt; 19; i++) {</span>
+<span class="body"> 429                  sprite[i].setScale(</span>
+<span class="body"> 430                      targetSize.x / sprite[i].getLocalBounds().width,</span>
+<span class="body"> 431                      targetSize.y / sprite[i].getLocalBounds().height);</span>
+<span class="body"> 432                  sprite[i].setPosition(pos);</span>
+<span class="body"> 433              }</span>
+<span class="body"> 434      }</span>
+<span class="body"> 435  </span>
+<span class="body"> 436      bool Duck() {</span>
+<span class="body"> 437          if (Keyboard::isKeyPressed(Keyboard::Down)) {</span>
+<span class="body"> 438              float tmpy = 420.0f;</span>
+<span class="body"> 439              for (int i = 19; i &lt; 34; i++) {</span>
+<span class="body"> 440                  sprite[i].setScale(</span>
+<span class="body"> 441                      targetSize.x / sprite[i].getLocalBounds().width,</span>
+<span class="body"> 442                      targetSize.y / sprite[i].getLocalBounds().height);</span>
+<span class="body"> 443                  sprite[i].setPosition(pos.x, tmpy);</span>
+<span class="body"> 444              }</span>
+<span class="body"> 445              return true;</span>
+<span class="body"> 446          }</span>
+<span class="body"> 447          return false;</span>
+<span class="body"> 448      }</span>
+<span class="body"> 449  </span>
+<span class="body"> 450      bool WalkFront() {</span>
+<span class="body"> 451          if (Keyboard::isKeyPressed(Keyboard::Right)) {</span>
+<span class="body"> 452              if (pos.x &lt;= 1100.0f)</span>
+<span class="body"> 453                  pos.x = pos.x + 15;</span>
+<span class="body"> 454  </span>
+<span class="body"> 455              for (int i = 34; i &lt; 44; i++) {</span>
+<span class="body"> 456                  sprite[i].setScale(</span>
+<span class="body"> 457                      targetSize.x / sprite[i].getLocalBounds().width,</span>
+<span class="body"> 458                      targetSize.y / sprite[i].getLocalBounds().height);</span>
+<span class="body"> 459                  sprite[i].setPosition(pos.x, pos.y);</span>
+<span class="body"> 460              }</span>
+<span class="body"> 461              return true;</span>
+<span class="body"> 462          }</span>
+<span class="body"> 463          return false;</span>
+<span class="body"> 464      }</span>
+<span class="body"> 465  </span>
+<span class="body"> 466      bool WalkBack(){</span>
+<span class="body"> 467          if (Keyboard::isKeyPressed(Keyboard::Left)) {</span>
+<span class="body"> 468              if (pos.x &gt; 0.0f)</span>
+<span class="body"> 469                  pos.x = pos.x - 15;</span>
+<span class="body"> 470  </span>
+<span class="body"> 471              for (int i = 44; i &lt; 53; i++) {</span>
+<span class="body"> 472                  sprite[i].setScale(</span>
+<span class="body"> 473                      targetSize.x / sprite[i].getLocalBounds().width,</span>
+<span class="body"> 474                      targetSize.y / sprite[i].getLocalBounds().height);</span>
+<span class="body"> 475                  sprite[i].setPosition(pos.x, pos.y);</span>
+<span class="body"> 476              }</span>
+<span class="body"> 477              return true;</span>
+<span class="body"> 478          }</span>
+<span class="body"> 479          return false;</span>
+<span class="body"> 480      }</span>
+<span class="body"> 481  </span>
+<span class="body"> 482      bool Jump() {</span>
+<span class="body"> 483          if (Keyboard::isKeyPressed(Keyboard::Up)) {</span>
+<span class="body"> 484              float tmpy = pos.y;</span>
+<span class="body"> 485              for(int i=53; i&lt;116; i++){</span>
+<span class="body"> 486                  sprite[i].setScale(</span>
+<span class="body"> 487                      targetSize.x / sprite[i].getLocalBounds().width,</span>
+<span class="body"> 488                      targetSize.y / sprite[i].getLocalBounds().height);</span>
+<span class="body"> 489                  sprite[i].setPosition(pos.x, pos.y);</span>
+<span class="body"> 490  </span>
+<span class="body"> 491              }</span>
+<span class="body"> 492  </span>
+<span class="body"> 493              return true;</span>
+<span class="body"> 494          }</span>
+<span class="body"> 495          return false;</span>
+<span class="body"> 496      }</span>
+<span class="body"> 497  </span>
+<span class="body"> 498      bool Punch() {</span>
+<span class="body"> 499          if (Keyboard::isKeyPressed(Keyboard::A)) {</span>
+<span class="body"> 500              for (int i = 116; i &lt; 129; i++) {</span>
+<span class="body"> 501                  sprite[i].setScale(</span>
+<span class="body"> 502                      targetSize.x / sprite[i].getLocalBounds().width,</span>
+<span class="body"> 503                      targetSize.y / sprite[i].getLocalBounds().height);</span>
+<span class="body"> 504                  sprite[i].setPosition(pos);</span>
+<span class="body"> 505              }</span>
+<span class="body"> 506              return true;</span>
+<span class="body"> 507          }</span>
+<span class="body"> 508          return false;</span>
+<span class="body"> 509      }</span>
+<span class="body"> 510  </span>
+<span class="body"> 511      bool Kick() {</span>
+<span class="body"> 512          if (Keyboard::isKeyPressed(Keyboard::S)) {</span>
+<span class="body"> 513              for (int i = 129; i &lt; 144; i++) {</span>
+<span class="body"> 514                  sprite[i].setScale(</span>
+<span class="body"> 515                      targetSize.x / sprite[i].getLocalBounds().width,</span>
+<span class="body"> 516                      targetSize.y / sprite[i].getLocalBounds().height);</span>
+<span class="body"> 517                  sprite[i].setPosition(pos);</span>
+<span class="body"> 518              }</span>
+<span class="body"> 519              return true;</span>
+<span class="body"> 520          }</span>
+<span class="body"> 521          return false;</span>
+<span class="body"> 522      }</span>
+<span class="body"> 523  </span>
+<span class="body"> 524      bool Combo() {</span>
+<span class="body"> 525          if (Keyboard::isKeyPressed(Keyboard::D)) {</span>
+<span class="body"> 526              for (int i = 144; i &lt; 196; i++) {</span>
+<span class="body"> 527              sprite[i].setScale(</span>
+<span class="body"> 528                  targetSize.x / sprite[i].getLocalBounds().width,</span>
+<span class="body"> 529                  targetSize.y / sprite[i].getLocalBounds().height);</span>
+<span class="body"> 530              sprite[i].setPosition(pos);</span>
+<span class="body"> 531              }</span>
+<span class="body"> 532              return true;</span>
+<span class="body"> 533          }</span>
+<span class="body"> 534          return false;</span>
+<span class="body"> 535      }</span>
+<span class="body"> 536  </span>
+<span class="body"> 537      bool Block() {</span>
+<span class="body"> 538          if (Keyboard::isKeyPressed(Keyboard::F)) {</span>
+<span class="body"> 539              for (int i = 196; i &lt; 207; i++) {</span>
+<span class="body"> 540                  sprite[i].setScale(</span>
+<span class="body"> 541                      targetSize.x / sprite[i].getLocalBounds().width,</span>
+<span class="body"> 542                      targetSize.y / sprite[i].getLocalBounds().height);</span>
+<span class="body"> 543                  sprite[i].setPosition(pos);</span>
+<span class="body"> 544              }</span>
+<span class="body"> 545              return true;</span>
+<span class="body"> 546          }</span>
+<span class="body"> 547          return false;</span>
+<span class="body"> 548      }</span>
+<span class="body"> 549  </span>
+<span class="body"> 550      bool Dead() {</span>
+<span class="body"> 551          if (health &lt;= 0) {</span>
+<span class="body"> 552              for (int i = 207; i &lt; 223; i++) {</span>
+<span class="body"> 553                  sprite[i].setScale(</span>
+<span class="body"> 554                      targetSize.x / sprite[i].getLocalBounds().width,</span>
+<span class="body"> 555                      targetSize.y / sprite[i].getLocalBounds().height);</span>
+<span class="body"> 556                  sprite[i].setPosition(pos);</span>
+<span class="body"> 557              }</span>
+<span class="body"> 558              return true;</span>
+<span class="body"> 559          }</span>
+<span class="body"> 560          return false;</span>
+<span class="body"> 561      }</span>
+<span class="body"> 562  </span>
+<span class="body"> 563      void setPos(Vector2f pos) {</span>
+<span class="body"> 564          this-&gt;pos = pos;</span>
+<span class="body"> 565      }</span>
+<span class="body"> 566  };</span>
+<span class="body"> 567  class Ryo:public characters</span>
+<span class="body"> 568  {</span>
+<span class="body"> 569  </span>
+<span class="body"> 570      int health;</span>
+<span class="body"> 571  </span>
+<span class="body"> 572      Vector2f targetSize;</span>
+<span class="body"> 573      Vector2f pos;</span>
+<span class="body"> 574  public:</span>
+<span class="body"> 575      Ryo(string name = "RYO") :characters(name) {</span>
+<span class="body"> 576  </span>
+<span class="body"> 577          texture = new Texture[142];</span>
+<span class="body"> 578          sprite = new Sprite[142];</span>
+<span class="body"> 579          pos.x = 1100.0f;</span>
+<span class="body"> 580          pos.y = 365.0f;</span>
+<span class="body"> 581  </span>
+<span class="body"> 582          targetSize.x = 140.0f; // 250</span>
+<span class="body"> 583          targetSize.y = 240.0f; // 400</span>
+<span class="body"> 584          health = 100;</span>
+<span class="body"> 585  // ryo ready</span>
+<span class="body"> 586          for (int i = 0; i &lt; 27; ++i)</span>
+<span class="body"> 587          {</span>
+<span class="body"> 588              int k=0;</span>
+<span class="body"> 589              texture[i].loadFromFile("AssetsNew/Ryu/ryuReady/ready (" + to_string(i - k + 1) + ").png");</span>
+<span class="body"> 590              sprite[i].setTexture(texture[i]);</span>
+<span class="body"> 591          }</span>
+<span class="body"> 592  // idle</span>
+<span class="body"> 593          for (int i = 27; i &lt; 33; ++i)</span>
+<span class="body"> 594          {</span>
+<span class="body"> 595              int k=27;</span>
+<span class="body"> 596              texture[i].loadFromFile("AssetsNew/Ryu/ryuIdle/idle (" + to_string(i - k + 1) + ").png");</span>
+<span class="body"> 597              sprite[i].setTexture(texture[i]);</span>
+<span class="body"> 598          }</span>
+<span class="body"> 599  // Duck</span>
+<span class="body"> 600          for (int i = 33; i &lt; 51; ++i)</span>
+<span class="body"> 601          {</span>
+<span class="body"> 602              int k=33;</span>
+<span class="body"> 603              texture[i].loadFromFile("AssetsNew/Ryu/ryuDuck/duck (" + to_string(i - k + 1) + ").png");</span>
+<span class="body"> 604              sprite[i].setTexture(texture[i]);</span>
+<span class="body"> 605          }</span>
+<span class="body"> 606  // Walk Front</span>
+<span class="body"> 607          for (int i = 51; i &lt; 59; ++i)</span>
+<span class="body"> 608          {</span>
+<span class="body"> 609              int k=51;</span>
+<span class="body"> 610              texture[i].loadFromFile("AssetsNew/Ryu/ryuWalkFront/walkFront (" + to_string(i - k + 1) + ").png");</span>
+<span class="body"> 611              sprite[i].setTexture(texture[i]);</span>
+<span class="body"> 612          }</span>
+<span class="body"> 613  // Walk back</span>
+<span class="body"> 614          for (int i = 59; i &lt; 67; ++i)</span>
+<span class="body"> 615          {</span>
+<span class="body"> 616              int k=59;</span>
+<span class="body"> 617              texture[i].loadFromFile("AssetsNew/Ryu/ryuWalkBack/walkBack (" + to_string(i - k + 1) + ").png");</span>
+<span class="body"> 618              sprite[i].setTexture(texture[i]);</span>
+<span class="body"> 619          }</span>
+<span class="body"> 620  // Jump</span>
+<span class="body"> 621          for (int i = 67; i &lt; 82; ++i)</span>
+<span class="body"> 622          {</span>
+<span class="body"> 623              int k=67;</span>
+<span class="body"> 624              texture[i].loadFromFile("AssetsNew/Ryu/ryuJump/jump (" + to_string(i - k + 1) + ").png");</span>
+<span class="body"> 625              sprite[i].setTexture(texture[i]);</span>
+<span class="body"> 626          }</span>
+<span class="body"> 627  // Punch</span>
+<span class="body"> 628          for (int i = 82; i &lt; 92; ++i)</span>
+<span class="body"> 629          {</span>
+<span class="body"> 630              int k=82;</span>
+<span class="body"> 631              texture[i].loadFromFile("AssetsNew/Ryu/ryuPunch/punch (" + to_string(i - k + 1) + ").png");</span>
+<span class="body"> 632              sprite[i].setTexture(texture[i]);</span>
+<span class="body"> 633          }</span>
+<span class="body"> 634  // Kick</span>
+<span class="body"> 635          for (int i = 92; i &lt; 101; ++i)</span>
+<span class="body"> 636          {</span>
+<span class="body"> 637              int k=92;</span>
+<span class="body"> 638              texture[i].loadFromFile("AssetsNew/Ryu/ryuKick/kick (" + to_string(i - k + 1) + ").png");</span>
+<span class="body"> 639              sprite[i].setTexture(texture[i]);</span>
+<span class="body"> 640          }</span>
+<span class="body"> 641  // combo</span>
+<span class="body"> 642          for (int i = 101; i &lt; 125; ++i)</span>
+<span class="body"> 643          {</span>
+<span class="body"> 644              int k=101;</span>
+<span class="body"> 645              texture[i].loadFromFile("AssetsNew/Ryu/ryuCombo/combo (" + to_string(i - k + 1) + ").png");</span>
+<span class="body"> 646              sprite[i].setTexture(texture[i]);</span>
+<span class="body"> 647          }</span>
+<span class="body"> 648  // Block</span>
+<span class="body"> 649          for (int i = 125; i &lt; 128; ++i)</span>
+<span class="body"> 650          {</span>
+<span class="body"> 651              int k=125;</span>
+<span class="body"> 652              texture[i].loadFromFile("AssetsNew/Ryu/ryuBlock/block (" + to_string(i - k + 1) + ").png");</span>
+<span class="body"> 653              sprite[i].setTexture(texture[i]);</span>
+<span class="body"> 654          }</span>
+<span class="body"> 655  // Dead</span>
+<span class="body"> 656          for (int i = 128; i &lt; 142; ++i)</span>
+<span class="body"> 657          {</span>
+<span class="body"> 658              int k=128;</span>
+<span class="body"> 659              texture[i].loadFromFile("AssetsNew/Ryu/ryuDead/dead (" + to_string(i - k + 1) + ").png");</span>
+<span class="body"> 660              sprite[i].setTexture(texture[i]);</span>
+<span class="body"> 661          }</span>
+<span class="body"> 662      }</span>
+<span class="body"> 663      ~Ryo() {</span>
+<span class="body"> 664          health = 0;</span>
+<span class="body"> 665      }</span>
+<span class="body"> 666  </span>
+<span class="body"> 667      void setHealth(int health) {</span>
+<span class="body"> 668          this-&gt;health = health;</span>
+<span class="body"> 669      }</span>
+<span class="body"> 670  </span>
+<span class="body"> 671      int getHealth()const {</span>
+<span class="body"> 672          return this-&gt;health;</span>
+<span class="body"> 673      }</span>
+<span class="body"> 674  </span>
+<span class="body"> 675      void Ready(bool status) {</span>
+<span class="body"> 676          if (status == true)</span>
+<span class="body"> 677              for (int i = 0; i &lt; 27; i++) {</span>
+<span class="body"> 678                  sprite[i].setScale(</span>
+<span class="body"> 679                      targetSize.x / sprite[i].getLocalBounds().width,</span>
+<span class="body"> 680                      targetSize.y / sprite[i].getLocalBounds().height);</span>
+<span class="body"> 681                  sprite[i].setPosition(pos);</span>
+<span class="body"> 682              }</span>
+<span class="body"> 683      }</span>
+<span class="body"> 684  </span>
+<span class="body"> 685      void Idle(bool status) {</span>
+<span class="body"> 686          if (status == false)</span>
+<span class="body"> 687              for (int i = 27; i &lt; 33; i++) {</span>
+<span class="body"> 688                  sprite[i].setScale(</span>
+<span class="body"> 689                      targetSize.x / sprite[i].getLocalBounds().width,</span>
+<span class="body"> 690                      targetSize.y / sprite[i].getLocalBounds().height);</span>
+<span class="body"> 691                  sprite[i].setPosition(pos);</span>
+<span class="body"> 692              }</span>
+<span class="body"> 693      }</span>
+<span class="body"> 694  </span>
+<span class="body"> 695      bool Duck()</span>
+<span class="body"> 696      {</span>
+<span class="body"> 697          float tmpy = pos.y + 25;</span>
+<span class="body"> 698          if (Keyboard::isKeyPressed(Keyboard::K)) {</span>
+<span class="body"> 699              for (int i = 33; i &lt; 51; i++) {</span>
+<span class="body"> 700                  sprite[i].setScale(</span>
+<span class="body"> 701                      targetSize.x / sprite[i].getLocalBounds().width,</span>
+<span class="body"> 702                      targetSize.y / sprite[i].getLocalBounds().height);</span>
+<span class="body"> 703                  sprite[i].setPosition(pos.x, tmpy);</span>
+<span class="body"> 704              }</span>
+<span class="body"> 705              return true;</span>
+<span class="body"> 706          }</span>
+<span class="body"> 707          return false;</span>
+<span class="body"> 708      }</span>
+<span class="body"> 709  </span>
+<span class="body"> 710      bool WalkFront() {</span>
+<span class="body"> 711          if (Keyboard::isKeyPressed(Keyboard::J)) {</span>
+<span class="body"> 712              if (pos.x &gt;= 0.0f )</span>
+<span class="body"> 713                  pos.x = pos.x - 15;</span>
+<span class="body"> 714  </span>
+<span class="body"> 715              for (int i = 51; i &lt; 59; i++) {</span>
+<span class="body"> 716                  sprite[i].setScale(</span>
+<span class="body"> 717                      targetSize.x / sprite[i].getLocalBounds().width,</span>
+<span class="body"> 718                      targetSize.y / sprite[i].getLocalBounds().height);</span>
+<span class="body"> 719                  sprite[i].setPosition(pos.x, pos.y);</span>
+<span class="body"> 720              }</span>
+<span class="body"> 721              return true;</span>
+<span class="body"> 722          }</span>
+<span class="body"> 723          return false;</span>
+<span class="body"> 724      }</span>
+<span class="body"> 725  </span>
+<span class="body"> 726      bool WalkBack() {</span>
+<span class="body"> 727          if (Keyboard::isKeyPressed(Keyboard::L)) {</span>
+<span class="body"> 728              if (pos.x &lt;= 1100.0f)</span>
+<span class="body"> 729                  pos.x = pos.x + 15;</span>
+<span class="body"> 730  </span>
+<span class="body"> 731              for (int i = 59; i &lt; 67; i++) {</span>
+<span class="body"> 732                  sprite[i].setScale(</span>
+<span class="body"> 733                      targetSize.x / sprite[i].getLocalBounds().width,</span>
+<span class="body"> 734                      targetSize.y / sprite[i].getLocalBounds().height);</span>
+<span class="body"> 735                  sprite[i].setPosition(pos.x, pos.y);</span>
+<span class="body"> 736  </span>
+<span class="body"> 737              }</span>
+<span class="body"> 738              return true;</span>
+<span class="body"> 739          }</span>
+<span class="body"> 740          return false;</span>
+<span class="body"> 741      }</span>
+<span class="body"> 742  </span>
+<span class="body"> 743      bool Jump() {</span>
+<span class="body"> 744          if (Keyboard::isKeyPressed(Keyboard::I)) {</span>
+<span class="body"> 745              float tmpy = pos.y;</span>
+<span class="body"> 746              for(int i=67; i&lt;82; i++){</span>
+<span class="body"> 747                  sprite[i].setScale(</span>
+<span class="body"> 748                      targetSize.x / sprite[i].getLocalBounds().width,</span>
+<span class="body"> 749                      targetSize.y / sprite[i].getLocalBounds().height);</span>
+<span class="body"> 750                  sprite[i].setPosition(pos.x, pos.y);</span>
+<span class="body"> 751              }</span>
+<span class="body"> 752              return true;</span>
+<span class="body"> 753          }</span>
+<span class="body"> 754          return false;</span>
+<span class="body"> 755      }</span>
+<span class="body"> 756  </span>
+<span class="body"> 757      bool Punch() {</span>
+<span class="body"> 758          if (Keyboard::isKeyPressed(Keyboard::V)) {</span>
+<span class="body"> 759              for (int i = 82; i &lt; 92; i++) {</span>
+<span class="body"> 760                  sprite[i].setScale(</span>
+<span class="body"> 761                      targetSize.x / sprite[i].getLocalBounds().width,</span>
+<span class="body"> 762                      targetSize.y / sprite[i].getLocalBounds().height);</span>
+<span class="body"> 763                  sprite[i].setPosition(pos);</span>
+<span class="body"> 764              }</span>
+<span class="body"> 765              return true;</span>
+<span class="body"> 766          }</span>
+<span class="body"> 767          return false;</span>
+<span class="body"> 768      }</span>
+<span class="body"> 769  </span>
+<span class="body"> 770      bool Kick() {</span>
+<span class="body"> 771          if (Keyboard::isKeyPressed(Keyboard::B)) {</span>
+<span class="body"> 772              for (int i = 92; i &lt; 101; i++) {</span>
+<span class="body"> 773                  sprite[i].setScale(</span>
+<span class="body"> 774                      targetSize.x / sprite[i].getLocalBounds().width,</span>
+<span class="body"> 775                      targetSize.y / sprite[i].getLocalBounds().height);</span>
+<span class="body"> 776                  sprite[i].setPosition(pos);</span>
+<span class="body"> 777              }</span>
+<span class="body"> 778              return true;</span>
+<span class="body"> 779          }</span>
+<span class="body"> 780          return false;</span>
+<span class="body"> 781      }</span>
+<span class="body"> 782  </span>
+<span class="body"> 783      bool Combo() {</span>
+<span class="body"> 784          if (Keyboard::isKeyPressed(Keyboard::N)) {</span>
+<span class="body"> 785              for (int i = 101; i &lt; 125; i++) {</span>
+<span class="body"> 786                  sprite[i].setScale(</span>
+<span class="body"> 787                      targetSize.x / sprite[i].getLocalBounds().width,</span>
+<span class="body"> 788                      targetSize.y / sprite[i].getLocalBounds().height);</span>
+<span class="body"> 789                  sprite[i].setPosition(pos);</span>
+<span class="body"> 790              }</span>
+<span class="body"> 791              return true;</span>
+<span class="body"> 792          }</span>
+<span class="body"> 793          return false;</span>
+<span class="body"> 794      }</span>
+<span class="body"> 795  </span>
+<span class="body"> 796      bool Dead() {</span>
+<span class="body"> 797          if (health &lt;= 0) {</span>
+<span class="body"> 798              for (int i = 128; i &lt; 142; i++) {</span>
+<span class="body"> 799                  sprite[i].setScale(</span>
+<span class="body"> 800                      targetSize.x / sprite[i].getLocalBounds().width,</span>
+<span class="body"> 801                      targetSize.y / sprite[i].getLocalBounds().height);</span>
+<span class="body"> 802                  sprite[i].setPosition(pos);</span>
+<span class="body"> 803              }</span>
+<span class="body"> 804              return true;</span>
+<span class="body"> 805          }</span>
+<span class="body"> 806          return false;</span>
+<span class="body"> 807      }</span>
+<span class="body"> 808  </span>
+<span class="body"> 809      bool Block() {</span>
+<span class="body"> 810          if (Keyboard::isKeyPressed(Keyboard::M)) {</span>
+<span class="body"> 811              for (int i = 125; i &lt; 128; i++) {</span>
+<span class="body"> 812                  sprite[i].setScale(</span>
+<span class="body"> 813                      targetSize.x / sprite[i].getLocalBounds().width,</span>
+<span class="body"> 814                      targetSize.y / sprite[i].getLocalBounds().height);</span>
+<span class="body"> 815                  sprite[i].setPosition(pos);</span>
+<span class="body"> 816              }</span>
+<span class="body"> 817              return true;</span>
+<span class="body"> 818          }</span>
+<span class="body"> 819          return false;</span>
+<span class="body"> 820      }</span>
+<span class="body"> 821  </span>
+<span class="body"> 822      void setPos(Vector2f pos) {</span>
+<span class="body"> 823          this-&gt;pos = pos;</span>
+<span class="body"> 824      }</span>
+<span class="body"> 825  };</span>
+<span class="body"> 826  class Level1:public Levels</span>
+<span class="body"> 827  {</span>
+<span class="body"> 828  </span>
+<span class="body"> 829      Font font;</span>
+<span class="body"> 830      Text txt[8];</span>
+<span class="body"> 831  </span>
+<span class="body"> 832      Iori iori;</span>
+<span class="body"> 833      Ryo ryo;</span>
+<span class="body"> 834  public:</span>
+<span class="body"> 835      Level1(string adress = "Assets/background.png",string name = "Level 1") :Levels(adress,name) {</span>
+<span class="body"> 836          font.loadFromFile("Assets/COOPBL.ttf");</span>
+<span class="body"> 837      }</span>
+<span class="body"> 838  </span>
+<span class="body"> 839      ~Level1() {</span>
+<span class="body"> 840          setTxbg("NULL");</span>
+<span class="body"> 841          setName("NULL");</span>
+<span class="body"> 842      }</span>
+<span class="body"> 843  </span>
+<span class="body"> 844  </span>
+<span class="body"> 845      bool back() {</span>
+<span class="body"> 846          if (Keyboard::isKeyPressed(Keyboard::Escape))</span>
+<span class="body"> 847              return true;</span>
+<span class="body"> 848  </span>
+<span class="body"> 849          return false;</span>
+<span class="body"> 850      }</span>
+<span class="body"> 851      void draw()</span>
+<span class="body"> 852      {</span>
+<span class="body"> 853  </span>
+<span class="body"> 854          txt[0].setFont(font);</span>
+<span class="body"> 855          txt[0].setString(getName());</span>
+<span class="body"> 856          txt[0].setPosition(600.0f, 250.0f);</span>
+<span class="body"> 857          txt[0].setColor(Color::Yellow);</span>
+<span class="body"> 858          txt[0].setCharacterSize(72);</span>
+<span class="body"> 859  </span>
+<span class="body"> 860          txt[1].setFont(font);</span>
+<span class="body"> 861          txt[1].setString("Ready!");</span>
+<span class="body"> 862          txt[1].setPosition(600.0f, 350.0f);</span>
+<span class="body"> 863          txt[1].setColor(Color::Yellow);</span>
+<span class="body"> 864          txt[1].setCharacterSize(72);</span>
+<span class="body"> 865  </span>
+<span class="body"> 866          txt[2].setFont(font);</span>
+<span class="body"> 867          txt[2].setString("IORI");</span>
+<span class="body"> 868          txt[2].setPosition(75.0f, 50.0f);</span>
+<span class="body"> 869          txt[2].setColor(Color::Yellow);</span>
+<span class="body"> 870          txt[2].setCharacterSize(60);</span>
+<span class="body"> 871  </span>
+<span class="body"> 872          string str = to_string(iori.getHealth());</span>
+<span class="body"> 873          txt[4].setFont(font);</span>
+<span class="body"> 874          if (iori.getHealth() &lt;= 0) {</span>
+<span class="body"> 875              str = '0';</span>
+<span class="body"> 876              txt[4].setColor(Color::Yellow);</span>
+<span class="body"> 877          }</span>
+<span class="body"> 878  </span>
+<span class="body"> 879          else</span>
+<span class="body"> 880              txt[4].setColor(Color::Yellow);</span>
+<span class="body"> 881  </span>
+<span class="body"> 882          txt[4].setString(str);</span>
+<span class="body"> 883          txt[4].setPosition(75.0f, 0.1f);</span>
+<span class="body"> 884          txt[4].setCharacterSize(72);</span>
+<span class="body"> 885  </span>
+<span class="body"> 886          txt[3].setFont(font);</span>
+<span class="body"> 887          txt[3].setString("RYO");</span>
+<span class="body"> 888          txt[3].setPosition(1100.0f, 50.0f);</span>
+<span class="body"> 889          txt[3].setColor(Color::Yellow);</span>
+<span class="body"> 890          txt[3].setCharacterSize(60);</span>
+<span class="body"> 891  </span>
+<span class="body"> 892          string str1 = to_string(ryo.getHealth());</span>
+<span class="body"> 893          txt[5].setFont(font);</span>
+<span class="body"> 894  </span>
+<span class="body"> 895          if (ryo.getHealth()&lt;=0) {</span>
+<span class="body"> 896              str1 = '0';</span>
+<span class="body"> 897              txt[5].setColor(Color::Yellow);</span>
+<span class="body"> 898          }</span>
+<span class="body"> 899  </span>
+<span class="body"> 900          else</span>
+<span class="body"> 901              txt[5].setColor(Color::Yellow);</span>
+<span class="body"> 902  </span>
+<span class="body"> 903          txt[5].setString(str1);</span>
+<span class="body"> 904          txt[5].setPosition(1100.0f, 0.05f);</span>
+<span class="body"> 905          txt[5].setCharacterSize(72);</span>
+<span class="body"> 906  </span>
+<span class="body"> 907          txt[6].setFont(font);</span>
+<span class="body"> 908          txt[6].setString("Iori Wins !");</span>
+<span class="body"> 909          txt[6].setPosition(500.0f, 300.0f);</span>
+<span class="body"> 910          txt[6].setColor(Color::Yellow);</span>
+<span class="body"> 911          txt[6].setCharacterSize(72);</span>
+<span class="body"> 912  </span>
+<span class="body"> 913          txt[7].setFont(font);</span>
+<span class="body"> 914          txt[7].setString("Ryo Wins !");</span>
+<span class="body"> 915          txt[7].setPosition(500.0f, 300.0f);</span>
+<span class="body"> 916          txt[7].setColor(Color::Yellow);</span>
+<span class="body"> 917          txt[7].setCharacterSize(72);</span>
+<span class="body"> 918      }</span>
+<span class="body"> 919  </span>
+<span class="body"> 920      Text gettxt(int i) {</span>
+<span class="body"> 921          return txt[i];</span>
+<span class="body"> 922      }</span>
+<span class="body"> 923  </span>
+<span class="body"> 924  </span>
+<span class="body"> 925      void IW_setHealth(int health) {</span>
+<span class="body"> 926          iori.setHealth(health);</span>
+<span class="body"> 927      }</span>
+<span class="body"> 928  </span>
+<span class="body"> 929      int IW_getHealth() {</span>
+<span class="body"> 930          return iori.getHealth();</span>
+<span class="body"> 931      }</span>
+<span class="body"> 932  </span>
+<span class="body"> 933      void IW_Ready(bool status) {</span>
+<span class="body"> 934          iori.Ready(status);</span>
+<span class="body"> 935      }</span>
+<span class="body"> 936  </span>
+<span class="body"> 937      void IW_Idle(bool key) {</span>
+<span class="body"> 938          iori.Idle(key);</span>
+<span class="body"> 939      }</span>
+<span class="body"> 940  </span>
+<span class="body"> 941      bool IW_Duck() {</span>
+<span class="body"> 942          return iori.Duck();</span>
+<span class="body"> 943      }</span>
+<span class="body"> 944  </span>
+<span class="body"> 945      bool IW_WalkFront() {</span>
+<span class="body"> 946          return iori.WalkFront();</span>
+<span class="body"> 947      }</span>
+<span class="body"> 948  </span>
+<span class="body"> 949      bool IW_WalkBack() {</span>
+<span class="body"> 950          return iori.WalkBack();</span>
+<span class="body"> 951      }</span>
+<span class="body"> 952  </span>
+<span class="body"> 953      bool IW_Jump() {</span>
+<span class="body"> 954          return iori.Jump();</span>
+<span class="body"> 955      }</span>
+<span class="body"> 956  </span>
+<span class="body"> 957      bool IW_Punch() {</span>
+<span class="body"> 958          return iori.Punch();</span>
+<span class="body"> 959      }</span>
+<span class="body"> 960  </span>
+<span class="body"> 961      bool IW_Kick() {</span>
+<span class="body"> 962          return iori.Kick();</span>
+<span class="body"> 963      }</span>
+<span class="body"> 964  </span>
+<span class="body"> 965      bool IW_Combo() {</span>
+<span class="body"> 966          return iori.Combo();</span>
+<span class="body"> 967      }</span>
+<span class="body"> 968  </span>
+<span class="body"> 969      bool IW_Block() {</span>
+<span class="body"> 970          return iori.Block();</span>
+<span class="body"> 971      }</span>
+<span class="body"> 972  </span>
+<span class="body"> 973      bool IW_Dead() {</span>
+<span class="body"> 974          return iori.Dead();</span>
+<span class="body"> 975      }</span>
+<span class="body"> 976  </span>
+<span class="body"> 977      Sprite IW_getSprite(int i) {</span>
+<span class="body"> 978          return iori.getSprite(i);</span>
+<span class="body"> 979      }</span>
+<span class="body"> 980  </span>
+<span class="body"> 981      void IW_setPos(Vector2f pos) {</span>
+<span class="body"> 982          iori.setPos(pos);</span>
+<span class="body"> 983      }</span>
+<span class="body"> 984  </span>
+<span class="body"> 985  </span>
+<span class="body"> 986      void RW_setHealth(int health) {</span>
+<span class="body"> 987          ryo.setHealth(health);</span>
+<span class="body"> 988      }</span>
+<span class="body"> 989  </span>
+<span class="body"> 990      int RW_getHealth() {</span>
+<span class="body"> 991          return ryo.getHealth();</span>
+<span class="body"> 992      }</span>
+<span class="body"> 993  </span>
+<span class="body"> 994      void RW_Ready(bool status) {</span>
+<span class="body"> 995          ryo.Ready(status);</span>
+<span class="body"> 996      }</span>
+<span class="body"> 997  </span>
+<span class="body"> 998      void RW_Idle(bool key) {</span>
+<span class="body"> 999          ryo.Idle(key);</span>
+<span class="body">1000      }</span>
+<span class="body">1001  </span>
+<span class="body">1002      bool RW_Duck() {</span>
+<span class="body">1003          return ryo.Duck();</span>
+<span class="body">1004      }</span>
+<span class="body">1005  </span>
+<span class="body">1006      bool RW_WalkFront() {</span>
+<span class="body">1007          return ryo.WalkFront();</span>
+<span class="body">1008      }</span>
+<span class="body">1009  </span>
+<span class="body">1010      bool RW_WalkBack() {</span>
+<span class="body">1011          return ryo.WalkBack();</span>
+<span class="body">1012      }</span>
+<span class="body">1013  </span>
+<span class="body">1014      bool RW_Jump() {</span>
+<span class="body">1015          return ryo.Jump();</span>
+<span class="body">1016      }</span>
+<span class="body">1017  </span>
+<span class="body">1018      bool RW_Punch() {</span>
+<span class="body">1019          return ryo.Punch();</span>
+<span class="body">1020      }</span>
+<span class="body">1021  </span>
+<span class="body">1022      bool RW_Kick() {</span>
+<span class="body">1023          return ryo.Kick();</span>
+<span class="body">1024      }</span>
+<span class="body">1025  </span>
+<span class="body">1026      bool RW_Combo() {</span>
+<span class="body">1027          return ryo.Combo();</span>
+<span class="body">1028      }</span>
+<span class="body">1029  </span>
+<span class="body">1030      bool RW_Block() {</span>
+<span class="body">1031          return ryo.Block();</span>
+<span class="body">1032      }</span>
+<span class="body">1033  </span>
+<span class="body">1034      bool RW_Dead() {</span>
+<span class="body">1035          return ryo.Dead();</span>
+<span class="body">1036      }</span>
+<span class="body">1037  </span>
+<span class="body">1038      Sprite RW_getSprite(int i) {</span>
+<span class="body">1039          return ryo.getSprite(i);</span>
+<span class="body">1040      }</span>
+<span class="body">1041  </span>
+<span class="body">1042      void RW_setPos(Vector2f pos) {</span>
+<span class="body">1043          ryo.setPos(pos);</span>
+<span class="body">1044      }</span>
+<span class="body">1045  </span>
+<span class="body">1046      void Game(int ioriPcontroller, int iorikcontroller, int ioriCcontroller,int ryoPcontroller, int ryokcontroller, int ryoCcontroller) {</span>
+<span class="body">1047          if (ryoPcontroller == 91 ) {</span>
+<span class="body">1048                  IntRect rect(ryo.getSprite(91).getGlobalBounds());</span>
+<span class="body">1049                  IntRect rect1(iori.getSprite(18).getGlobalBounds());</span>
+<span class="body">1050                  if (rect.intersects(rect1))</span>
+<span class="body">1051                      iori.setHealth(iori.getHealth() - 5);</span>
+<span class="body">1052          }</span>
+<span class="body">1053  </span>
+<span class="body">1054          else if (ryokcontroller == 100) {</span>
+<span class="body">1055              IntRect rect(ryo.getSprite(100).getGlobalBounds());</span>
+<span class="body">1056              IntRect rect1(iori.getSprite(18).getGlobalBounds());</span>
+<span class="body">1057              if (rect.intersects(rect1))</span>
+<span class="body">1058                  iori.setHealth(iori.getHealth() - 5);</span>
+<span class="body">1059          }</span>
+<span class="body">1060  </span>
+<span class="body">1061          else {</span>
+<span class="body">1062              if (ryoCcontroller == 124) {</span>
+<span class="body">1063                  IntRect rect(ryo.getSprite(124).getGlobalBounds());</span>
+<span class="body">1064                  IntRect rect1(iori.getSprite(18).getGlobalBounds());</span>
+<span class="body">1065                  if (rect.intersects(rect1))</span>
+<span class="body">1066                      iori.setHealth(iori.getHealth() - 20);</span>
+<span class="body">1067              }</span>
+<span class="body">1068          }</span>
+<span class="body">1069  </span>
+<span class="body">1070          if (ioriPcontroller == 128) {</span>
+<span class="body">1071              IntRect rect(iori.getSprite(128).getGlobalBounds());</span>
+<span class="body">1072              IntRect rect1(ryo.getSprite(32).getGlobalBounds());</span>
+<span class="body">1073              if (rect.intersects(rect1))</span>
+<span class="body">1074                  ryo.setHealth(ryo.getHealth() - 5);</span>
+<span class="body">1075          }</span>
+<span class="body">1076  </span>
+<span class="body">1077          else if (iorikcontroller == 143) {</span>
+<span class="body">1078              IntRect rect(iori.getSprite(143).getGlobalBounds());</span>
+<span class="body">1079              IntRect rect1(ryo.getSprite(32).getGlobalBounds());</span>
+<span class="body">1080              if (rect.intersects(rect1))</span>
+<span class="body">1081                  ryo.setHealth(ryo.getHealth() - 5);</span>
+<span class="body">1082          }</span>
+<span class="body">1083  </span>
+<span class="body">1084          else {</span>
+<span class="body">1085              if ((ioriCcontroller == 195)) {</span>
+<span class="body">1086                  IntRect rect(iori.getSprite(195).getGlobalBounds());</span>
+<span class="body">1087                  IntRect rect1(ryo.getSprite(32).getGlobalBounds());</span>
+<span class="body">1088                  if (rect.intersects(rect1))</span>
+<span class="body">1089                      ryo.setHealth(ryo.getHealth() - 20);</span>
+<span class="body">1090              }</span>
+<span class="body">1091          }</span>
+<span class="body">1092  </span>
+<span class="body">1093      }</span>
+<span class="body">1094  };</span>
+<span class="body">1095  int main() {</span>
+<span class="body">1096      RenderWindow window(VideoMode(800, 640), "Street Fighter!", Style:: Fullscreen);</span>
+<span class="body">1097      window.setFramerateLimit(60);</span>
+<span class="body">1098      mainmenu menu;</span>
+<span class="body">1099      Instruction instructions;</span>
+<span class="body">1100      Level1 lvl1;</span>
+<span class="body">1101      bool iskeyPressed = false, iskeyPressed2 = false, isExit = false, changeLevel = false, f = false;</span>
+<span class="body">1102      int flag = 0, nxtlvl = 0;</span>
+<span class="body">1103      int animationcontroller[11] = { 0, 10, 19, 34, 44, 53, 116, 129, 144, 196, 207};</span>
+<span class="body">1104      int animcontrolller2[11] = { 0, 27, 33, 51, 59, 67, 82, 92, 101, 125, 128};</span>
+<span class="body">1105      Clock clock;</span>
+<span class="body">1106      Music music[8];</span>
+<span class="body">1107      music[0].openFromFile("Assets/sound/Track_01.ogg");</span>
+<span class="body">1108      music[1].openFromFile("Assets/sound/Track_02.ogg");</span>
+<span class="body">1109      music[2].openFromFile("Assets/sound/Track_03.ogg");</span>
+<span class="body">1110      music[3].openFromFile("Assets/sound/Crowd.ogg");</span>
+<span class="body">1111      music[4].openFromFile("Assets/sound/End.ogg");</span>
+<span class="body">1112      music[5].openFromFile("Assets/sound/Kick.ogg");</span>
+<span class="body">1113      music[6].openFromFile("Assets/sound/Punch.ogg");</span>
+<span class="body">1114      music[7].openFromFile("Assets/sound/Start.ogg");</span>
+<span class="body">1115      music[3].play();</span>
+<span class="body">1116      music[3].setLoop(true);</span>
+<span class="body">1117      music[3].setVolume(0);</span>
+<span class="body">1118      while (window.isOpen()) {</span>
+<span class="body">1119          if (music[2].getStatus() == SoundSource::Stopped) {</span>
+<span class="body">1120              music[0].play();</span>
+<span class="body">1121              music[0].setVolume(40);</span>
+<span class="body">1122          }</span>
+<span class="body">1123  </span>
+<span class="body">1124          if (music[0].getStatus() == SoundSource::Stopped) {</span>
+<span class="body">1125              music[1].play();</span>
+<span class="body">1126              music[1].setVolume(40);</span>
+<span class="body">1127          }</span>
+<span class="body">1128  </span>
+<span class="body">1129          if (music[1].getStatus() == SoundSource::Stopped) {</span>
+<span class="body">1130              music[2].play();</span>
+<span class="body">1131              music[2].setVolume(40);</span>
+<span class="body">1132          }</span>
+<span class="body">1133  </span>
+<span class="body">1134  </span>
+<span class="body">1135          Event event;</span>
+<span class="body">1136          while (window.pollEvent(event)) {</span>
+<span class="body">1137              if (flag == 0) {</span>
+<span class="body">1138  </span>
+<span class="body">1139                  isExit = menu.exit();</span>
+<span class="body">1140                  if (isExit)</span>
+<span class="body">1141                      window.close();</span>
+<span class="body">1142  </span>
+<span class="body">1143                  changeLevel = menu.instructions();</span>
+<span class="body">1144                  if (changeLevel)</span>
+<span class="body">1145                      flag = 1;</span>
+<span class="body">1146  </span>
+<span class="body">1147                  changeLevel = menu.play();</span>
+<span class="body">1148                  if (changeLevel == true) {</span>
+<span class="body">1149                      flag = 2;</span>
+<span class="body">1150                      clock.restart();</span>
+<span class="body">1151                      animationcontroller[0] = 0;</span>
+<span class="body">1152                      animcontrolller2[0] = 0;</span>
+<span class="body">1153                      lvl1.IW_setHealth(100);</span>
+<span class="body">1154                      lvl1.RW_setHealth(100);</span>
+<span class="body">1155                      animcontrolller2[10] = 128;</span>
+<span class="body">1156                      animationcontroller[10] = 207;</span>
+<span class="body">1157                      Vector2f v(100.0f, 365.0f);</span>
+<span class="body">1158                      lvl1.IW_setPos(v);</span>
+<span class="body">1159                      v.x = 1100.0f;</span>
+<span class="body">1160                      v.y = 365.0f;</span>
+<span class="body">1161                      lvl1.RW_setPos(v);</span>
+<span class="body">1162                  }</span>
+<span class="body">1163              }</span>
+<span class="body">1164  </span>
+<span class="body">1165              if (flag == 1) {</span>
+<span class="body">1166                  changeLevel = instructions.back();</span>
+<span class="body">1167                  if (changeLevel == true)</span>
+<span class="body">1168                      flag = 0;</span>
+<span class="body">1169                  music[3].setVolume(0);</span>
+<span class="body">1170              }</span>
+<span class="body">1171  </span>
+<span class="body">1172              if (flag == 2) {</span>
+<span class="body">1173                  changeLevel = lvl1.back();</span>
+<span class="body">1174                  if (changeLevel == true)</span>
+<span class="body">1175                      flag = 0;</span>
+<span class="body">1176              }</span>
+<span class="body">1177  </span>
+<span class="body">1178              if (event.type == Event::Closed)</span>
+<span class="body">1179                  window.close();</span>
+<span class="body">1180          }</span>
+<span class="body">1181  </span>
+<span class="body">1182          window.clear();</span>
+<span class="body">1183          if (flag == 0) {</span>
+<span class="body">1184              menu.setPosition();</span>
+<span class="body">1185              menu.draw();</span>
+<span class="body">1186              window.draw(menu.getspbg());</span>
+<span class="body">1187              window.draw(menu.gettitle());</span>
+<span class="body">1188              window.draw(menu.getPlay());</span>
+<span class="body">1189              window.draw(menu.getInstruction());</span>
+<span class="body">1190              window.draw(menu.getExit());</span>
+<span class="body">1191          }</span>
+<span class="body">1192  </span>
+<span class="body">1193          if (flag == 1) {</span>
+<span class="body">1194              instructions.draw();</span>
+<span class="body">1195              instructions.setPosition();</span>
+<span class="body">1196              window.draw(instructions.getspbg());</span>
+<span class="body">1197              for (int i = 0; i &lt; 7; i++)</span>
+<span class="body">1198                  window.draw(instructions.getTx(i));</span>
+<span class="body">1199          }</span>
+<span class="body">1200          if (flag == 2) {</span>
+<span class="body">1201              lvl1.setPosition();</span>
+<span class="body">1202              window.draw(lvl1.getspbg());</span>
+<span class="body">1203              lvl1.draw();</span>
+<span class="body">1204              Time t1 = clock.getElapsedTime();</span>
+<span class="body">1205              if (t1.asSeconds() &lt; 2.0f) {</span>
+<span class="body">1206                  if (!f) {</span>
+<span class="body">1207                      music[7].play();</span>
+<span class="body">1208                      music[7].setVolume(100);</span>
+<span class="body">1209                      music[3].setVolume(5);</span>
+<span class="body">1210                  }</span>
+<span class="body">1211  </span>
+<span class="body">1212                  for (int i = 0; i &lt; 2; i++)</span>
+<span class="body">1213                      window.draw(lvl1.gettxt(i));</span>
+<span class="body">1214  </span>
+<span class="body">1215                  lvl1.IW_Ready(true);</span>
+<span class="body">1216                  if (animationcontroller[0] &gt;= 0 &amp;&amp; animationcontroller[0] &lt;= 9) {</span>
+<span class="body">1217                      window.draw(lvl1.IW_getSprite(animationcontroller[0]));</span>
+<span class="body">1218                      animationcontroller[0]++;</span>
+<span class="body">1219                  }</span>
+<span class="body">1220  </span>
+<span class="body">1221                  else</span>
+<span class="body">1222                      window.draw(lvl1.IW_getSprite(animationcontroller[0] - 1));</span>
+<span class="body">1223  </span>
+<span class="body">1224  </span>
+<span class="body">1225                  lvl1.RW_Ready(true);</span>
+<span class="body">1226                  if (animcontrolller2[0] &gt;= 0 &amp;&amp; animcontrolller2[0] &lt;= 26) {</span>
+<span class="body">1227                      window.draw(lvl1.RW_getSprite(animcontrolller2[0]));</span>
+<span class="body">1228                      animcontrolller2[0]++;</span>
+<span class="body">1229                  }</span>
+<span class="body">1230  </span>
+<span class="body">1231                  else</span>
+<span class="body">1232                      window.draw(lvl1.RW_getSprite(animcontrolller2[0] - 1));</span>
+<span class="body">1233  </span>
+<span class="body">1234                  f = true;</span>
+<span class="body">1235              }</span>
+<span class="body">1236  </span>
+<span class="body">1237              for (int i = 2; i &lt; 6; i++)</span>
+<span class="body">1238                  window.draw(lvl1.gettxt(i));</span>
+<span class="body">1239  </span>
+<span class="body">1240              if (t1.asSeconds() &gt; 2.0f) {</span>
+<span class="body">1241                  music[3].setVolume(100);</span>
+<span class="body">1242                  if (lvl1.RW_getHealth() &gt; 0 &amp;&amp; lvl1.IW_getHealth() &gt; 0) {</span>
+<span class="body">1243                      lvl1.Game(animationcontroller[6], animationcontroller[7], animationcontroller[8], animcontrolller2[6], animcontrolller2[7], animcontrolller2[8]);</span>
+<span class="body">1244  </span>
+<span class="body">1245                      if (iskeyPressed == false) {</span>
+<span class="body">1246                          lvl1.IW_Idle(iskeyPressed);</span>
+<span class="body">1247                          if (animationcontroller[1] &gt;= 10 &amp;&amp; animationcontroller[1] &lt;= 18) {</span>
+<span class="body">1248                              window.draw(lvl1.IW_getSprite(animationcontroller[1]));</span>
+<span class="body">1249                              animationcontroller[1]++;</span>
+<span class="body">1250                          }</span>
+<span class="body">1251                          else {</span>
+<span class="body">1252                              window.draw(lvl1.IW_getSprite(animationcontroller[1] - 1));</span>
+<span class="body">1253                              animationcontroller[1] = 10;</span>
+<span class="body">1254                          }</span>
+<span class="body">1255                      }</span>
+<span class="body">1256  </span>
+<span class="body">1257                      if (lvl1.IW_Duck() == true) {</span>
+<span class="body">1258                          iskeyPressed = true;</span>
+<span class="body">1259                          if (animationcontroller[2] &gt;= 19 &amp;&amp; animationcontroller[2] &lt; 34) {</span>
+<span class="body">1260                              window.draw(lvl1.IW_getSprite(animationcontroller[2]));</span>
+<span class="body">1261                              animationcontroller[2]++;</span>
+<span class="body">1262                          }</span>
+<span class="body">1263                          else {</span>
+<span class="body">1264                              window.draw(lvl1.IW_getSprite(animationcontroller[2] - 1));</span>
+<span class="body">1265                              animationcontroller[2] = 19;</span>
+<span class="body">1266                          }</span>
+<span class="body">1267                      }</span>
+<span class="body">1268  </span>
+<span class="body">1269                      else if (lvl1.IW_WalkFront() == true) {</span>
+<span class="body">1270                          iskeyPressed = true;</span>
+<span class="body">1271                          if (animationcontroller[3] &gt;= 34 &amp;&amp; animationcontroller[3] &lt; 44) {</span>
+<span class="body">1272                              window.draw(lvl1.IW_getSprite(animationcontroller[3]));</span>
+<span class="body">1273                              animationcontroller[3]++;</span>
+<span class="body">1274                          }</span>
+<span class="body">1275                          else {</span>
+<span class="body">1276                              window.draw(lvl1.IW_getSprite(animationcontroller[3] - 1));</span>
+<span class="body">1277                              animationcontroller[3] = 34;</span>
+<span class="body">1278                          }</span>
+<span class="body">1279                      }</span>
+<span class="body">1280  </span>
+<span class="body">1281                      else if (lvl1.IW_WalkBack() == true) {</span>
+<span class="body">1282                          iskeyPressed = true;</span>
+<span class="body">1283                          if (animationcontroller[4] &gt;= 44 &amp;&amp; animationcontroller[4] &lt; 53) {</span>
+<span class="body">1284                              window.draw(lvl1.IW_getSprite(animationcontroller[4]));</span>
+<span class="body">1285                              animationcontroller[4]++;</span>
+<span class="body">1286                          }</span>
+<span class="body">1287                          else {</span>
+<span class="body">1288                              window.draw(lvl1.IW_getSprite(animationcontroller[4] - 1));</span>
+<span class="body">1289                              animationcontroller[4] = 44;</span>
+<span class="body">1290                          }</span>
+<span class="body">1291                      }</span>
+<span class="body">1292  </span>
+<span class="body">1293                      else if (lvl1.IW_Jump() == true) {</span>
+<span class="body">1294                          iskeyPressed = true;</span>
+<span class="body">1295                          if (animationcontroller[5] &gt;= 53 &amp;&amp; animationcontroller[5] &lt;= 115) {</span>
+<span class="body">1296                              window.draw(lvl1.IW_getSprite(animationcontroller[5]));</span>
+<span class="body">1297                              animationcontroller[5]++;</span>
+<span class="body">1298                          }</span>
+<span class="body">1299                          else {</span>
+<span class="body">1300                              window.draw(lvl1.IW_getSprite(animationcontroller[5] - 1));</span>
+<span class="body">1301                              animationcontroller[5] = 53;</span>
+<span class="body">1302                          }</span>
+<span class="body">1303                      }</span>
+<span class="body">1304  </span>
+<span class="body">1305                      else if (lvl1.IW_Punch() == true) {</span>
+<span class="body">1306                          music[6].play();</span>
+<span class="body">1307                          music[6].setVolume(100);</span>
+<span class="body">1308                          iskeyPressed = true;</span>
+<span class="body">1309                          if (animationcontroller[6] &gt;= 116 &amp;&amp; animationcontroller[6] &lt;= 128) {</span>
+<span class="body">1310                              window.draw(lvl1.IW_getSprite(animationcontroller[6]));</span>
+<span class="body">1311                              animationcontroller[6]++;</span>
+<span class="body">1312                          }</span>
+<span class="body">1313                          else {</span>
+<span class="body">1314                              window.draw(lvl1.IW_getSprite(animationcontroller[6] - 1));</span>
+<span class="body">1315                              animationcontroller[6] = 116;</span>
+<span class="body">1316                          }</span>
+<span class="body">1317                      }</span>
+<span class="body">1318  </span>
+<span class="body">1319                      else if (lvl1.IW_Kick() == true) {</span>
+<span class="body">1320                          music[5].play();</span>
+<span class="body">1321                          music[5].setVolume(100);</span>
+<span class="body">1322                          iskeyPressed = true;</span>
+<span class="body">1323                          if (animationcontroller[7] &gt;= 129 &amp;&amp; animationcontroller[7] &lt;= 143) {</span>
+<span class="body">1324                              window.draw(lvl1.IW_getSprite(animationcontroller[7]));</span>
+<span class="body">1325                              animationcontroller[7]++;</span>
+<span class="body">1326                          }</span>
+<span class="body">1327                          else {</span>
+<span class="body">1328                              window.draw(lvl1.IW_getSprite(animationcontroller[7] - 1));</span>
+<span class="body">1329                              animationcontroller[7] = 129;</span>
+<span class="body">1330                          }</span>
+<span class="body">1331                      }</span>
+<span class="body">1332  </span>
+<span class="body">1333                      else if (lvl1.IW_Combo() == true) {</span>
+<span class="body">1334                          iskeyPressed = true;</span>
+<span class="body">1335                          if (animationcontroller[8] &gt;= 144 &amp;&amp; animationcontroller[8] &lt;= 195)</span>
+<span class="body">1336                          {</span>
+<span class="body">1337                              window.draw(lvl1.IW_getSprite(animationcontroller[8]));</span>
+<span class="body">1338                              animationcontroller[8]++;</span>
+<span class="body">1339                          }</span>
+<span class="body">1340                          else</span>
+<span class="body">1341                          {</span>
+<span class="body">1342                              window.draw(lvl1.IW_getSprite(animationcontroller[8] - 1));</span>
+<span class="body">1343                              animationcontroller[8] = 144;</span>
+<span class="body">1344                          }</span>
+<span class="body">1345                      }</span>
+<span class="body">1346  </span>
+<span class="body">1347                      else if (lvl1.IW_Block() == true) {</span>
+<span class="body">1348                          iskeyPressed = true;</span>
+<span class="body">1349                          if (animationcontroller[9] &gt;= 196 &amp;&amp; animationcontroller[9] &lt; 207) {</span>
+<span class="body">1350                              window.draw(lvl1.IW_getSprite(animationcontroller[9]));</span>
+<span class="body">1351                              animationcontroller[9]++;</span>
+<span class="body">1352                          }</span>
+<span class="body">1353                          else {</span>
+<span class="body">1354                              window.draw(lvl1.IW_getSprite(animationcontroller[9] - 1));</span>
+<span class="body">1355                              animationcontroller[9] = 196;</span>
+<span class="body">1356                          }</span>
+<span class="body">1357                      }</span>
+<span class="body">1358  </span>
+<span class="body">1359                      else if (lvl1.IW_Dead() == true) {</span>
+<span class="body">1360                          iskeyPressed = true;</span>
+<span class="body">1361                          if (animationcontroller[10] &gt;= 207 &amp;&amp; animationcontroller[10] &lt; 223) {</span>
+<span class="body">1362                              window.draw(lvl1.IW_getSprite(animationcontroller[10]));</span>
+<span class="body">1363                              animationcontroller[10]++;</span>
+<span class="body">1364                              Sleep(100);</span>
+<span class="body">1365                          }</span>
+<span class="body">1366                          else</span>
+<span class="body">1367                              window.draw(lvl1.IW_getSprite(animationcontroller[10]));</span>
+<span class="body">1368                      }</span>
+<span class="body">1369                      else</span>
+<span class="body">1370                          iskeyPressed = false;</span>
+<span class="body">1371  </span>
+<span class="body">1372                      if (iskeyPressed2 == false) {</span>
+<span class="body">1373                          lvl1.RW_Idle(iskeyPressed2);</span>
+<span class="body">1374                          if (animcontrolller2[1] &gt;= 27 &amp;&amp; animcontrolller2[1] &lt;= 32) {</span>
+<span class="body">1375                              window.draw(lvl1.RW_getSprite(animcontrolller2[1]));</span>
+<span class="body">1376                              animcontrolller2[1]++;</span>
+<span class="body">1377                          }</span>
+<span class="body">1378                          else {</span>
+<span class="body">1379                              window.draw(lvl1.RW_getSprite(animcontrolller2[1] - 1));</span>
+<span class="body">1380                              animcontrolller2[1] = 27;</span>
+<span class="body">1381                          }</span>
+<span class="body">1382                      }</span>
+<span class="body">1383  </span>
+<span class="body">1384                      if (lvl1.RW_Duck() == true) {</span>
+<span class="body">1385                          iskeyPressed2 = true;</span>
+<span class="body">1386                          if (animcontrolller2[2] &gt;= 33 &amp;&amp; animcontrolller2[2] &lt;50) {</span>
+<span class="body">1387                              window.draw(lvl1.RW_getSprite(animcontrolller2[2]));</span>
+<span class="body">1388                              animcontrolller2[2]++;</span>
+<span class="body">1389                          }</span>
+<span class="body">1390                          else {</span>
+<span class="body">1391                              window.draw(lvl1.RW_getSprite(animcontrolller2[2] - 1));</span>
+<span class="body">1392                              animcontrolller2[2] = 33;</span>
+<span class="body">1393                          }</span>
+<span class="body">1394                      }</span>
+<span class="body">1395  </span>
+<span class="body">1396                      else if (lvl1.RW_WalkFront() == true) {</span>
+<span class="body">1397                          iskeyPressed2 = true;</span>
+<span class="body">1398                          if (animcontrolller2[3] &gt;= 51 &amp;&amp; animcontrolller2[3] &lt; 59) {</span>
+<span class="body">1399                              window.draw(lvl1.RW_getSprite(animcontrolller2[3]));</span>
+<span class="body">1400                              animcontrolller2[3]++;</span>
+<span class="body">1401                          }</span>
+<span class="body">1402                          else {</span>
+<span class="body">1403                              window.draw(lvl1.RW_getSprite(animcontrolller2[3] - 1));</span>
+<span class="body">1404                              animcontrolller2[3] = 51;</span>
+<span class="body">1405                          }</span>
+<span class="body">1406                      }</span>
+<span class="body">1407  </span>
+<span class="body">1408                      else if (lvl1.RW_WalkBack() == true) {</span>
+<span class="body">1409                          iskeyPressed2 = true;</span>
+<span class="body">1410                          if (animcontrolller2[4] &gt;= 59 &amp;&amp; animcontrolller2[4] &lt;= 66) {</span>
+<span class="body">1411                              window.draw(lvl1.RW_getSprite(animcontrolller2[4]));</span>
+<span class="body">1412                              animcontrolller2[4]++;</span>
+<span class="body">1413                          }</span>
+<span class="body">1414                          else {</span>
+<span class="body">1415                              window.draw(lvl1.RW_getSprite(animcontrolller2[4] - 1));</span>
+<span class="body">1416                              animcontrolller2[4] = 59;</span>
+<span class="body">1417                          }</span>
+<span class="body">1418                      }</span>
+<span class="body">1419  </span>
+<span class="body">1420                      else if (lvl1.RW_Jump() == true) {</span>
+<span class="body">1421                          iskeyPressed2 = true;</span>
+<span class="body">1422                          if (animcontrolller2[5] &gt;= 67 &amp;&amp; animcontrolller2[5] &lt;= 82) {</span>
+<span class="body">1423                              window.draw(lvl1.RW_getSprite(animcontrolller2[5]));</span>
+<span class="body">1424                              animcontrolller2[5]++;</span>
+<span class="body">1425                          }</span>
+<span class="body">1426                          else {</span>
+<span class="body">1427                              window.draw(lvl1.RW_getSprite(animcontrolller2[5] - 1));</span>
+<span class="body">1428                              animcontrolller2[5] = 67;</span>
+<span class="body">1429                          }</span>
+<span class="body">1430                      }</span>
+<span class="body">1431  </span>
+<span class="body">1432                      else if (lvl1.RW_Punch() == true) {</span>
+<span class="body">1433                          music[6].play();</span>
+<span class="body">1434                          music[6].setVolume(100);</span>
+<span class="body">1435                          iskeyPressed2 = true;</span>
+<span class="body">1436                          if (animcontrolller2[6] &gt;= 82 &amp;&amp; animcontrolller2[6] &lt;= 91) {</span>
+<span class="body">1437                              window.draw(lvl1.RW_getSprite(animcontrolller2[6]));</span>
+<span class="body">1438                              animcontrolller2[6]++;</span>
+<span class="body">1439                          }</span>
+<span class="body">1440                          else {</span>
+<span class="body">1441                              window.draw(lvl1.RW_getSprite(animcontrolller2[6] - 1));</span>
+<span class="body">1442                              animcontrolller2[6] = 82;</span>
+<span class="body">1443                          }</span>
+<span class="body">1444  </span>
+<span class="body">1445                      }</span>
+<span class="body">1446  </span>
+<span class="body">1447                      else if (lvl1.RW_Kick() == true) {</span>
+<span class="body">1448                          music[5].play();</span>
+<span class="body">1449                          music[5].setVolume(100);</span>
+<span class="body">1450                          iskeyPressed2 = true;</span>
+<span class="body">1451                          if (animcontrolller2[7] &gt;= 92 &amp;&amp; animcontrolller2[7] &lt;= 101) {</span>
+<span class="body">1452                              window.draw(lvl1.RW_getSprite(animcontrolller2[7]));</span>
+<span class="body">1453                              animcontrolller2[7]++;</span>
+<span class="body">1454                          }</span>
+<span class="body">1455                          else {</span>
+<span class="body">1456                              window.draw(lvl1.RW_getSprite(animcontrolller2[7] - 1));</span>
+<span class="body">1457                              animcontrolller2[7] = 92;</span>
+<span class="body">1458                          }</span>
+<span class="body">1459  </span>
+<span class="body">1460                      }</span>
+<span class="body">1461  </span>
+<span class="body">1462                      else if (lvl1.RW_Combo() == true) {</span>
+<span class="body">1463                          iskeyPressed2 = true;</span>
+<span class="body">1464                          if (animcontrolller2[8] &gt;= 101 &amp;&amp; animcontrolller2[8] &lt;= 124) {</span>
+<span class="body">1465                              window.draw(lvl1.RW_getSprite(animcontrolller2[8]));</span>
+<span class="body">1466                              animcontrolller2[8]++;</span>
+<span class="body">1467                          }</span>
+<span class="body">1468                          else {</span>
+<span class="body">1469                              window.draw(lvl1.RW_getSprite(animcontrolller2[8] - 1));</span>
+<span class="body">1470                              animcontrolller2[8] = 101;</span>
+<span class="body">1471                          }</span>
+<span class="body">1472                      }</span>
+<span class="body">1473  </span>
+<span class="body">1474                      else if (lvl1.RW_Block() == true) {</span>
+<span class="body">1475                          iskeyPressed2 = true;</span>
+<span class="body">1476                          if (animcontrolller2[9] &gt;= 125 &amp;&amp; animcontrolller2[9] &lt; 128) {</span>
+<span class="body">1477                              window.draw(lvl1.RW_getSprite(animcontrolller2[9]));</span>
+<span class="body">1478                              animcontrolller2[9]++;</span>
+<span class="body">1479                          }</span>
+<span class="body">1480                          else {</span>
+<span class="body">1481                              window.draw(lvl1.RW_getSprite(animcontrolller2[9] - 1));</span>
+<span class="body">1482                              animcontrolller2[9] = 125;</span>
+<span class="body">1483                          }</span>
+<span class="body">1484                      }</span>
+<span class="body">1485  </span>
+<span class="body">1486                      else if (lvl1.RW_Dead() == true) {</span>
+<span class="body">1487                          iskeyPressed2 = true;</span>
+<span class="body">1488                          if (animcontrolller2[10] &gt;= 128 &amp;&amp; animcontrolller2[10] &lt; 142) {</span>
+<span class="body">1489                              window.draw(lvl1.RW_getSprite(animcontrolller2[10]));</span>
+<span class="body">1490                              animcontrolller2[10]++;</span>
+<span class="body">1491                              Sleep(70);</span>
+<span class="body">1492                          }</span>
+<span class="body">1493                          else</span>
+<span class="body">1494                              window.draw(lvl1.RW_getSprite(animcontrolller2[10]));</span>
+<span class="body">1495                      }</span>
+<span class="body">1496                      else {</span>
+<span class="body">1497                          iskeyPressed2 = false;</span>
+<span class="body">1498                          f = false;</span>
+<span class="body">1499                      }</span>
+<span class="body">1500                  }</span>
+<span class="body">1501                  else {</span>
+<span class="body">1502                      lvl1.draw();</span>
+<span class="body">1503                      if (!f) {</span>
+<span class="body">1504                          music[3].setVolume(20);</span>
+<span class="body">1505                          music[4].play();</span>
+<span class="body">1506                          music[4].setVolume(100);</span>
+<span class="body">1507                      }</span>
+<span class="body">1508                      if (lvl1.IW_getHealth() &lt;= 0) {</span>
+<span class="body">1509                          window.draw(lvl1.gettxt(7));</span>
+<span class="body">1510                          window.draw(lvl1.RW_getSprite(6));</span>
+<span class="body">1511                      }</span>
+<span class="body">1512                      else {</span>
+<span class="body">1513                          window.draw(lvl1.gettxt(6));</span>
+<span class="body">1514                          window.draw(lvl1.IW_getSprite(3));</span>
+<span class="body">1515                      }</span>
+<span class="body">1516                      f = true;</span>
+<span class="body">1517                  }</span>
+<span class="body">1518              }</span>
+<span class="body">1519          }</span>
+<span class="body">1520          window.display();</span>
+<span class="body">1521          Sleep(50);</span>
+<span class="body">1522      }</span>
+<span class="body">1523      return 0;</span>
+<span class="body">1524  }</span></span>
+</code></pre>
+</body>
+</html>
