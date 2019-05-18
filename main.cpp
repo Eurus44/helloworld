@@ -32,7 +32,7 @@ public:
 		name = '\0';
 	}
 
-
+// set position
 	void setPosition() {
 
 		Vector2f targetSize(1366.0f, 768.0f);
@@ -61,6 +61,8 @@ public:
 		return name;
 	}
 };
+//main menu
+// show the play, instrucion and exit button
 class mainmenu:public Levels
 {
 
@@ -78,10 +80,7 @@ public:
 
 	}
 
-	~mainmenu() {
-		setTxbg("NULL");
-		setName("NULL");
-	}
+	~mainmenu() {}
 
 
 	Text gettitle() {
@@ -101,21 +100,21 @@ public:
 	}
 
 	void draw() {
-
+// title setting
 		title.setFont(font);
 		title.setString("Street Fighter!");
 		title.setPosition(300.0f, 50.0f);
 		title.setColor(Color::White);
 		title.setCharacterSize(172);
 
-
+// play setting
 		ply.setFont(font);
 		ply.setString("Play");
 		ply.setPosition(575.0f, 300.0f);
 
 		IntRect rect2(ply.getPosition().x + 5, ply.getPosition().y + 5, ply.getGlobalBounds().width + 5, ply.getGlobalBounds().height + 5);
 
-
+// If we hover on Play, change color
 		if (rect2.contains(Mouse::getPosition()))
 			ply.setColor(Color::Yellow);
 
@@ -124,12 +123,12 @@ public:
 
 		ply.setCharacterSize(72);
 
-
+// instruction setting
 		ins.setFont(font);
 		ins.setString("Instruction");
 		ins.setPosition(575.0f, 450.0f);
 		sf::IntRect rect1(ins.getPosition().x + 5, ins.getPosition().y + 5, ins.getGlobalBounds().width + 5, ins.getGlobalBounds().height + 5);
-
+// click to change color of instruction
 
 		if (rect1.contains(Mouse::getPosition()))
 			ins.setColor(Color::Yellow);
@@ -139,13 +138,13 @@ public:
 
 		ins.setCharacterSize(72);
 
-
+//exit setting
 		exi.setFont(font);
 		exi.setString("Exit");
 		exi.setPosition(575.0f, 600.0f);
 		sf::IntRect rect(exi.getPosition().x + 5, exi.getPosition().y + 5, exi.getGlobalBounds().width + 5, exi.getGlobalBounds().height + 5);
 
-
+// exit change color
 		if (rect.contains(Mouse::getPosition()))
 			exi.setColor(Color::Yellow);
 
@@ -200,10 +199,7 @@ public:
 		font.loadFromFile("Assets/david.ttf");
 	}
 
-	~Instruction() {
-		setTxbg("NULL");
-		setName("NULL");
-	}
+	~Instruction() {}
 
 
 	Text getTx(int i) {
@@ -219,7 +215,7 @@ public:
 
 		return false;
 	}
-
+// set instruction
 	void draw() {
 		for (int i = 0; i < 7; i++) {
 			tx[i].setFont(font);
@@ -310,8 +306,8 @@ public:
 
 		pos.x = 100.0f;
 		pos.y = 365.0f;
-		targetSize.x = 140.0f;//250
-		targetSize.y = 240.0f;//400
+		targetSize.x = 140.0f;
+		targetSize.y = 240.0f;
 
 		health = 100;
 
@@ -331,7 +327,6 @@ public:
 		    int k=10;
 			texture[i].loadFromFile("AssetsNew/Iori/ioriIdle/idle (" + to_string(i -k + 1) + ").png");
 			sprite[i].setTexture(texture[i]);
-			//sprite.setSize(100, 200);
 		}
 // load duck OK
         for (int i = 19; i < 34; ++i)
@@ -432,15 +427,12 @@ public:
 				sprite[i].setPosition(pos);
 			}
 	}
-
+// ok
 	bool Duck() {
 		if (Keyboard::isKeyPressed(Keyboard::Down)) {
-			float tmpy = 420.0f;
 			for (int i = 19; i < 34; i++) {
-				sprite[i].setScale(
-					targetSize.x / sprite[i].getLocalBounds().width,
-					targetSize.y / sprite[i].getLocalBounds().height);
-				sprite[i].setPosition(pos.x, tmpy);
+                sprite[i].setScale(2,2.3);
+				sprite[i].setPosition(pos.x, pos.y);
 			}
 			return true;
 		}
@@ -483,10 +475,8 @@ public:
 		if (Keyboard::isKeyPressed(Keyboard::Up)) {
 			float tmpy = pos.y;
 			for(int i=53; i<116; i++){
-                sprite[i].setScale(
-                    targetSize.x / sprite[i].getLocalBounds().width,
-                    targetSize.y / sprite[i].getLocalBounds().height);
-                sprite[i].setPosition(pos.x, pos.y);
+                sprite[i].setScale(2,2);
+                sprite[i].setPosition(pos.x, pos.y-200.0f);
 
 			}
 
@@ -494,46 +484,40 @@ public:
 		}
 		return false;
 	}
-
+// set punch
 	bool Punch() {
 		if (Keyboard::isKeyPressed(Keyboard::A)) {
 			for (int i = 116; i < 129; i++) {
-				sprite[i].setScale(
-					targetSize.x / sprite[i].getLocalBounds().width,
-					targetSize.y / sprite[i].getLocalBounds().height);
-				sprite[i].setPosition(pos);
+                sprite[i].setScale(2,2.15);
+				sprite[i].setPosition(pos.x, pos.y);
 			}
 			return true;
 		}
 		return false;
 	}
-
+// set kick
 	bool Kick() {
 		if (Keyboard::isKeyPressed(Keyboard::S)) {
 			for (int i = 129; i < 144; i++) {
-				sprite[i].setScale(
-					targetSize.x / sprite[i].getLocalBounds().width,
-					targetSize.y / sprite[i].getLocalBounds().height);
-				sprite[i].setPosition(pos);
+                sprite[i].setScale(2.2,2);
+				sprite[i].setPosition(pos.x-85.0f, pos.y-35.0f);
 			}
 			return true;
 		}
 		return false;
 	}
-
+// set combo
 	bool Combo() {
 		if (Keyboard::isKeyPressed(Keyboard::D)) {
 			for (int i = 144; i < 196; i++) {
-			sprite[i].setScale(
-				targetSize.x / sprite[i].getLocalBounds().width,
-				targetSize.y / sprite[i].getLocalBounds().height);
-			sprite[i].setPosition(pos);
+            sprite[i].setScale(2,2);
+			sprite[i].setPosition(pos.x-200.0f,pos.y-200.0f);
 			}
 			return true;
 		}
 		return false;
 	}
-
+// set block
 	bool Block() {
 		if (Keyboard::isKeyPressed(Keyboard::F)) {
 			for (int i = 196; i < 207; i++) {
@@ -553,7 +537,7 @@ public:
 				sprite[i].setScale(
 					targetSize.x / sprite[i].getLocalBounds().width,
 					targetSize.y / sprite[i].getLocalBounds().height);
-				sprite[i].setPosition(pos);
+				sprite[i].setPosition(pos.x,pos.y);
 			}
 			return true;
 		}
@@ -579,8 +563,8 @@ public:
 		pos.x = 1100.0f;
 		pos.y = 365.0f;
 
-		targetSize.x = 140.0f; // 250
-		targetSize.y = 240.0f; // 400
+		targetSize.x = 140.0f;
+		targetSize.y = 240.0f;
 		health = 100;
 // ryo ready
         for (int i = 0; i < 27; ++i)
@@ -691,22 +675,20 @@ public:
 				sprite[i].setPosition(pos);
 			}
 	}
-
+// set duck
 	bool Duck()
 	{
 		float tmpy = pos.y + 25;
 		if (Keyboard::isKeyPressed(Keyboard::K)) {
 			for (int i = 33; i < 51; i++) {
-				sprite[i].setScale(
-					targetSize.x / sprite[i].getLocalBounds().width,
-					targetSize.y / sprite[i].getLocalBounds().height);
-				sprite[i].setPosition(pos.x, tmpy);
+                sprite[i].setScale(2.4,2.4);
+				sprite[i].setPosition(pos.x, pos.y-18);
 			}
 			return true;
 		}
 		return false;
 	}
-
+// walk front
 	bool WalkFront() {
 		if (Keyboard::isKeyPressed(Keyboard::J)) {
 			if (pos.x >= 0.0f )
@@ -714,7 +696,7 @@ public:
 
 			for (int i = 51; i < 59; i++) {
 				sprite[i].setScale(
-					targetSize.x / sprite[i].getLocalBounds().width,
+                    2.5,
 					targetSize.y / sprite[i].getLocalBounds().height);
 				sprite[i].setPosition(pos.x, pos.y);
 			}
@@ -722,7 +704,7 @@ public:
 		}
 		return false;
 	}
-
+// set walk back
 	bool WalkBack() {
 		if (Keyboard::isKeyPressed(Keyboard::L)) {
 			if (pos.x <= 1100.0f)
@@ -730,7 +712,7 @@ public:
 
 			for (int i = 59; i < 67; i++) {
 				sprite[i].setScale(
-					targetSize.x / sprite[i].getLocalBounds().width,
+                    2.5,
 					targetSize.y / sprite[i].getLocalBounds().height);
 				sprite[i].setPosition(pos.x, pos.y);
 
@@ -739,60 +721,52 @@ public:
 		}
 		return false;
 	}
-
+// set jump
 	bool Jump() {
 		if (Keyboard::isKeyPressed(Keyboard::I)) {
 			float tmpy = pos.y;
 			for(int i=67; i<82; i++){
-                sprite[i].setScale(
-                    targetSize.x / sprite[i].getLocalBounds().width,
-                    targetSize.y / sprite[i].getLocalBounds().height);
-                sprite[i].setPosition(pos.x, pos.y);
+                sprite[i].setScale(2.3,2.3);
+                sprite[i].setPosition(pos.x-30, pos.y-180);
 			}
 			return true;
 		}
 		return false;
 	}
-
+// set punch
 	bool Punch() {
 		if (Keyboard::isKeyPressed(Keyboard::V)) {
 			for (int i = 82; i < 92; i++) {
-				sprite[i].setScale(
-					targetSize.x / sprite[i].getLocalBounds().width,
-					targetSize.y / sprite[i].getLocalBounds().height);
-				sprite[i].setPosition(pos);
+				sprite[i].setScale(2.4,2.4);
+				sprite[i].setPosition(pos.x-95,pos.y-35);
 			}
 			return true;
 		}
 		return false;
 	}
-
+// set kick
 	bool Kick() {
 		if (Keyboard::isKeyPressed(Keyboard::B)) {
 			for (int i = 92; i < 101; i++) {
-				sprite[i].setScale(
-					targetSize.x / sprite[i].getLocalBounds().width,
-					targetSize.y / sprite[i].getLocalBounds().height);
-				sprite[i].setPosition(pos);
+				sprite[i].setScale(2.3,2.3);
+				sprite[i].setPosition(pos.x-100,pos.y-85);
 			}
 			return true;
 		}
 		return false;
 	}
-
+// set combo
 	bool Combo() {
 		if (Keyboard::isKeyPressed(Keyboard::N)) {
 			for (int i = 101; i < 125; i++) {
-				sprite[i].setScale(
-					targetSize.x / sprite[i].getLocalBounds().width,
-					targetSize.y / sprite[i].getLocalBounds().height);
-				sprite[i].setPosition(pos);
+				sprite[i].setScale(2,2.3);
+				sprite[i].setPosition(pos.x-600,pos.y-140);
 			}
 			return true;
 		}
 		return false;
 	}
-
+// dead
 	bool Dead() {
 		if (health <= 0) {
 			for (int i = 128; i < 142; i++) {
@@ -805,13 +779,11 @@ public:
 		}
 		return false;
 	}
-
+// set block
 	bool Block() {
 		if (Keyboard::isKeyPressed(Keyboard::M)) {
 			for (int i = 125; i < 128; i++) {
-				sprite[i].setScale(
-					targetSize.x / sprite[i].getLocalBounds().width,
-					targetSize.y / sprite[i].getLocalBounds().height);
+				sprite[i].setScale(2.3,2.3);
 				sprite[i].setPosition(pos);
 			}
 			return true;
@@ -836,10 +808,7 @@ public:
 		font.loadFromFile("Assets/COOPBL.ttf");
 	}
 
-	~Level1() {
-		setTxbg("NULL");
-		setName("NULL");
-	}
+	~Level1() {}
 
 
 	bool back() {
@@ -850,19 +819,19 @@ public:
 	}
 	void draw()
 	{
-
+//level name
 		txt[0].setFont(font);
 		txt[0].setString(getName());
 		txt[0].setPosition(600.0f, 250.0f);
 		txt[0].setColor(Color::Yellow);
 		txt[0].setCharacterSize(72);
-
+// ready
 		txt[1].setFont(font);
 		txt[1].setString("Ready!");
 		txt[1].setPosition(600.0f, 350.0f);
 		txt[1].setColor(Color::Yellow);
 		txt[1].setCharacterSize(72);
-
+// set iori name
 		txt[2].setFont(font);
 		txt[2].setString("IORI");
 		txt[2].setPosition(75.0f, 50.0f);
@@ -882,7 +851,7 @@ public:
 		txt[4].setString(str);
 		txt[4].setPosition(75.0f, 0.1f);
 		txt[4].setCharacterSize(72);
-
+// set ryu name
 		txt[3].setFont(font);
 		txt[3].setString("RYO");
 		txt[3].setPosition(1100.0f, 50.0f);
@@ -903,13 +872,13 @@ public:
 		txt[5].setString(str1);
 		txt[5].setPosition(1100.0f, 0.05f);
 		txt[5].setCharacterSize(72);
-
+// iori win
 		txt[6].setFont(font);
 		txt[6].setString("Iori Wins !");
 		txt[6].setPosition(500.0f, 300.0f);
 		txt[6].setColor(Color::Yellow);
 		txt[6].setCharacterSize(72);
-
+// ryo wins
 		txt[7].setFont(font);
 		txt[7].setString("Ryo Wins !");
 		txt[7].setPosition(500.0f, 300.0f);
@@ -1042,20 +1011,20 @@ public:
 	void RW_setPos(Vector2f pos) {
 		ryo.setPos(pos);
 	}
-
+//Game System
 	void Game(int ioriPcontroller, int iorikcontroller, int ioriCcontroller,int ryoPcontroller, int ryokcontroller, int ryoCcontroller) {
 		if (ryoPcontroller == 91 ) {
 				IntRect rect(ryo.getSprite(91).getGlobalBounds());
 				IntRect rect1(iori.getSprite(18).getGlobalBounds());
 				if (rect.intersects(rect1))
-					iori.setHealth(iori.getHealth() - 5);
+					iori.setHealth(iori.getHealth() - 5);// decrement 5 from health if punch is activated
 		}
 
 		else if (ryokcontroller == 100) {
 			IntRect rect(ryo.getSprite(100).getGlobalBounds());
 			IntRect rect1(iori.getSprite(18).getGlobalBounds());
 			if (rect.intersects(rect1))
-				iori.setHealth(iori.getHealth() - 5);
+				iori.setHealth(iori.getHealth() - 5); // decrement 5 from health if kick is activated
 		}
 
 		else {
@@ -1063,22 +1032,22 @@ public:
 				IntRect rect(ryo.getSprite(124).getGlobalBounds());
 				IntRect rect1(iori.getSprite(18).getGlobalBounds());
 				if (rect.intersects(rect1))
-					iori.setHealth(iori.getHealth() - 20);
+					iori.setHealth(iori.getHealth() - 20);// decrement 20 from health if Combo is activated
 			}
 		}
-
+//
 		if (ioriPcontroller == 128) {
 			IntRect rect(iori.getSprite(128).getGlobalBounds());
 			IntRect rect1(ryo.getSprite(32).getGlobalBounds());
 			if (rect.intersects(rect1))
-				ryo.setHealth(ryo.getHealth() - 5);
+				ryo.setHealth(ryo.getHealth() - 5);// decrement 5 from health if punch is activated
 		}
 
 		else if (iorikcontroller == 143) {
 			IntRect rect(iori.getSprite(143).getGlobalBounds());
 			IntRect rect1(ryo.getSprite(32).getGlobalBounds());
 			if (rect.intersects(rect1))
-				ryo.setHealth(ryo.getHealth() - 5);
+				ryo.setHealth(ryo.getHealth() - 5);// decrement 5 from health if kick is activated
 		}
 
 		else {
@@ -1086,7 +1055,7 @@ public:
 				IntRect rect(iori.getSprite(195).getGlobalBounds());
 				IntRect rect1(ryo.getSprite(32).getGlobalBounds());
 				if (rect.intersects(rect1))
-					ryo.setHealth(ryo.getHealth() - 20);
+					ryo.setHealth(ryo.getHealth() - 20);// decrement 20 from health if combo is activated
 			}
 		}
 
@@ -1101,7 +1070,7 @@ int main() {
 	bool iskeyPressed = false, iskeyPressed2 = false, isExit = false, changeLevel = false, f = false;
 	int flag = 0, nxtlvl = 0;
 	int animationcontroller[11] = { 0, 10, 19, 34, 44, 53, 116, 129, 144, 196, 207};
-	int animcontrolller2[11] = { 0, 27, 33, 51, 59, 67, 82, 92, 101, 125, 128};
+	int animcontroller2[11] = { 0, 27, 33, 51, 59, 67, 82, 92, 101, 125, 128};
 	Clock clock;
 	Music music[8];
 	music[0].openFromFile("Assets/sound/Track_01.ogg");
@@ -1149,10 +1118,10 @@ int main() {
 					flag = 2;
 					clock.restart();
 					animationcontroller[0] = 0;
-					animcontrolller2[0] = 0;
+					animcontroller2[0] = 0;
 					lvl1.IW_setHealth(100);
 					lvl1.RW_setHealth(100);
-					animcontrolller2[10] = 128;
+					animcontroller2[10] = 128;
 					animationcontroller[10] = 207;
 					Vector2f v(100.0f, 365.0f);
 					lvl1.IW_setPos(v);
@@ -1223,13 +1192,13 @@ int main() {
 
 
 				lvl1.RW_Ready(true);
-				if (animcontrolller2[0] >= 0 && animcontrolller2[0] <= 26) {
-					window.draw(lvl1.RW_getSprite(animcontrolller2[0]));
-					animcontrolller2[0]++;
+				if (animcontroller2[0] >= 0 && animcontroller2[0] <= 26) {
+					window.draw(lvl1.RW_getSprite(animcontroller2[0]));
+					animcontroller2[0]++;
 				}
 
 				else
-					window.draw(lvl1.RW_getSprite(animcontrolller2[0] - 1));
+					window.draw(lvl1.RW_getSprite(animcontroller2[0] - 1));
 
 				f = true;
 			}
@@ -1240,7 +1209,7 @@ int main() {
 			if (t1.asSeconds() > 2.0f) {
 				music[3].setVolume(100);
 				if (lvl1.RW_getHealth() > 0 && lvl1.IW_getHealth() > 0) {
-					lvl1.Game(animationcontroller[6], animationcontroller[7], animationcontroller[8], animcontrolller2[6], animcontrolller2[7], animcontrolller2[8]);
+					lvl1.Game(animationcontroller[6], animationcontroller[7], animationcontroller[8], animcontroller2[6], animcontroller2[7], animcontroller2[8]);
 
 					if (iskeyPressed == false) {
 						lvl1.IW_Idle(iskeyPressed);
@@ -1371,61 +1340,61 @@ int main() {
 
 					if (iskeyPressed2 == false) {
 						lvl1.RW_Idle(iskeyPressed2);
-						if (animcontrolller2[1] >= 27 && animcontrolller2[1] <= 32) {
-							window.draw(lvl1.RW_getSprite(animcontrolller2[1]));
-							animcontrolller2[1]++;
+						if (animcontroller2[1] >= 27 && animcontroller2[1] <= 32) {
+							window.draw(lvl1.RW_getSprite(animcontroller2[1]));
+							animcontroller2[1]++;
 						}
 						else {
-							window.draw(lvl1.RW_getSprite(animcontrolller2[1] - 1));
-							animcontrolller2[1] = 27;
+							window.draw(lvl1.RW_getSprite(animcontroller2[1] - 1));
+							animcontroller2[1] = 27;
 						}
 					}
 
 					if (lvl1.RW_Duck() == true) {
 						iskeyPressed2 = true;
-						if (animcontrolller2[2] >= 33 && animcontrolller2[2] <50) {
-							window.draw(lvl1.RW_getSprite(animcontrolller2[2]));
-							animcontrolller2[2]++;
+						if (animcontroller2[2] >= 33 && animcontroller2[2] <50) {
+							window.draw(lvl1.RW_getSprite(animcontroller2[2]));
+							animcontroller2[2]++;
 						}
 						else {
-							window.draw(lvl1.RW_getSprite(animcontrolller2[2] - 1));
-							animcontrolller2[2] = 33;
+							window.draw(lvl1.RW_getSprite(animcontroller2[2] - 1));
+							animcontroller2[2] = 33;
 						}
 					}
 
 					else if (lvl1.RW_WalkFront() == true) {
 						iskeyPressed2 = true;
-						if (animcontrolller2[3] >= 51 && animcontrolller2[3] < 59) {
-							window.draw(lvl1.RW_getSprite(animcontrolller2[3]));
-							animcontrolller2[3]++;
+						if (animcontroller2[3] >= 51 && animcontroller2[3] < 59) {
+							window.draw(lvl1.RW_getSprite(animcontroller2[3]));
+							animcontroller2[3]++;
 						}
 						else {
-							window.draw(lvl1.RW_getSprite(animcontrolller2[3] - 1));
-							animcontrolller2[3] = 51;
+							window.draw(lvl1.RW_getSprite(animcontroller2[3] - 1));
+							animcontroller2[3] = 51;
 						}
 					}
 
 					else if (lvl1.RW_WalkBack() == true) {
 						iskeyPressed2 = true;
-						if (animcontrolller2[4] >= 59 && animcontrolller2[4] <= 66) {
-							window.draw(lvl1.RW_getSprite(animcontrolller2[4]));
-							animcontrolller2[4]++;
+						if (animcontroller2[4] >= 59 && animcontroller2[4] <= 66) {
+							window.draw(lvl1.RW_getSprite(animcontroller2[4]));
+							animcontroller2[4]++;
 						}
 						else {
-							window.draw(lvl1.RW_getSprite(animcontrolller2[4] - 1));
-							animcontrolller2[4] = 59;
+							window.draw(lvl1.RW_getSprite(animcontroller2[4] - 1));
+							animcontroller2[4] = 59;
 						}
 					}
 
 					else if (lvl1.RW_Jump() == true) {
 						iskeyPressed2 = true;
-						if (animcontrolller2[5] >= 67 && animcontrolller2[5] <= 82) {
-							window.draw(lvl1.RW_getSprite(animcontrolller2[5]));
-							animcontrolller2[5]++;
+						if (animcontroller2[5] >= 67 && animcontroller2[5] <= 82) {
+							window.draw(lvl1.RW_getSprite(animcontroller2[5]));
+							animcontroller2[5]++;
 						}
 						else {
-							window.draw(lvl1.RW_getSprite(animcontrolller2[5] - 1));
-							animcontrolller2[5] = 67;
+							window.draw(lvl1.RW_getSprite(animcontroller2[5] - 1));
+							animcontroller2[5] = 67;
 						}
 					}
 
@@ -1433,13 +1402,13 @@ int main() {
 						music[6].play();
 						music[6].setVolume(100);
 						iskeyPressed2 = true;
-						if (animcontrolller2[6] >= 82 && animcontrolller2[6] <= 91) {
-							window.draw(lvl1.RW_getSprite(animcontrolller2[6]));
-							animcontrolller2[6]++;
+						if (animcontroller2[6] >= 82 && animcontroller2[6] <= 91) {
+							window.draw(lvl1.RW_getSprite(animcontroller2[6]));
+							animcontroller2[6]++;
 						}
 						else {
-							window.draw(lvl1.RW_getSprite(animcontrolller2[6] - 1));
-							animcontrolller2[6] = 82;
+							window.draw(lvl1.RW_getSprite(animcontroller2[6] - 1));
+							animcontroller2[6] = 82;
 						}
 
 					}
@@ -1448,50 +1417,50 @@ int main() {
 						music[5].play();
 						music[5].setVolume(100);
 						iskeyPressed2 = true;
-						if (animcontrolller2[7] >= 92 && animcontrolller2[7] <= 101) {
-							window.draw(lvl1.RW_getSprite(animcontrolller2[7]));
-							animcontrolller2[7]++;
+						if (animcontroller2[7] >= 92 && animcontroller2[7] <= 101) {
+							window.draw(lvl1.RW_getSprite(animcontroller2[7]));
+							animcontroller2[7]++;
 						}
 						else {
-							window.draw(lvl1.RW_getSprite(animcontrolller2[7] - 1));
-							animcontrolller2[7] = 92;
+							window.draw(lvl1.RW_getSprite(animcontroller2[7] - 1));
+							animcontroller2[7] = 92;
 						}
 
 					}
 
 					else if (lvl1.RW_Combo() == true) {
 						iskeyPressed2 = true;
-						if (animcontrolller2[8] >= 101 && animcontrolller2[8] <= 124) {
-							window.draw(lvl1.RW_getSprite(animcontrolller2[8]));
-							animcontrolller2[8]++;
+						if (animcontroller2[8] >= 101 && animcontroller2[8] <= 124) {
+							window.draw(lvl1.RW_getSprite(animcontroller2[8]));
+							animcontroller2[8]++;
 						}
 						else {
-							window.draw(lvl1.RW_getSprite(animcontrolller2[8] - 1));
-							animcontrolller2[8] = 101;
+							window.draw(lvl1.RW_getSprite(animcontroller2[8] - 1));
+							animcontroller2[8] = 101;
 						}
 					}
 
 					else if (lvl1.RW_Block() == true) {
 						iskeyPressed2 = true;
-						if (animcontrolller2[9] >= 125 && animcontrolller2[9] < 128) {
-							window.draw(lvl1.RW_getSprite(animcontrolller2[9]));
-							animcontrolller2[9]++;
+						if (animcontroller2[9] >= 125 && animcontroller2[9] < 128) {
+							window.draw(lvl1.RW_getSprite(animcontroller2[9]));
+							animcontroller2[9]++;
 						}
 						else {
-							window.draw(lvl1.RW_getSprite(animcontrolller2[9] - 1));
-							animcontrolller2[9] = 125;
+							window.draw(lvl1.RW_getSprite(animcontroller2[9] - 1));
+							animcontroller2[9] = 125;
 						}
 					}
 
 					else if (lvl1.RW_Dead() == true) {
 						iskeyPressed2 = true;
-						if (animcontrolller2[10] >= 128 && animcontrolller2[10] < 142) {
-							window.draw(lvl1.RW_getSprite(animcontrolller2[10]));
-							animcontrolller2[10]++;
+						if (animcontroller2[10] >= 128 && animcontroller2[10] < 142) {
+							window.draw(lvl1.RW_getSprite(animcontroller2[10]));
+							animcontroller2[10]++;
 							Sleep(70);
 						}
 						else
-							window.draw(lvl1.RW_getSprite(animcontrolller2[10]));
+							window.draw(lvl1.RW_getSprite(animcontroller2[10]));
 					}
 					else {
 						iskeyPressed2 = false;
@@ -1518,7 +1487,7 @@ int main() {
 			}
 		}
 		window.display();
-		Sleep(50);
+		Sleep(60);
 	}
 	return 0;
 }

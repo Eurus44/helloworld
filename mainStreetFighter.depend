@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1556075543 source:c:\dragonwarrior\streetfighter04222019\main.cpp
+1558163537 source:c:\dragonwarrior\mainstreetfighter\main.cpp
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
 	<SFML/Audio.hpp>
@@ -519,12 +519,4 @@
 1525812018 c:\users\nguye\downloads\sfml-2.5.1-windows-gcc-5.1.0-tdm-32-bit\sfml\include\sfml\audio\soundfilewriter.hpp
 	<SFML/Audio/Export.hpp>
 	<string>
-
-1558033702 source:c:\dragonwarrior\mainstreetfighter\main.cpp
-	<SFML/Graphics.hpp>
-	<SFML/Window.hpp>
-	<SFML/Audio.hpp>
-	<iostream>
-	<string>
-	<Windows.h>
 
